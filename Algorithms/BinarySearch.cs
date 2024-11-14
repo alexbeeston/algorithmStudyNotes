@@ -1,4 +1,6 @@
-﻿namespace Algorithms;
+﻿using System.Numerics;
+
+namespace Algorithms;
 
 public class BinarySearch
 {
@@ -15,7 +17,13 @@ public class BinarySearch
             }
             else if (target == arr[mid])
             {
-                return mid;
+                do
+                {
+                    mid--;
+                }
+                while (mid > -1 && arr[mid] == target);
+
+                return mid + 1;
             }
             else
             {
@@ -45,7 +53,13 @@ public class BinarySearch
         }
         else if (target == arr[mid])
         {
-            return mid;
+            do
+            {
+                mid--;
+            }
+            while (mid > -1 && arr[mid] == target);
+
+            return mid + 1;
         }
         else
         {

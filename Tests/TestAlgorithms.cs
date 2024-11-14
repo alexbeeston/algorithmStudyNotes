@@ -5,118 +5,137 @@ namespace Tests;
 [TestClass]
 public class TestAlgorithms
 {
-	[TestMethod]
-	public void TestBinarySearch()
-	{
+    /// <summary>
+    /// Arrays of sorted integers of varying lengths; includes duplicates and negatives.
+    /// </summary>
+    private List<int[]> SortedInts = new List<int[]>
+    {
+        new int[] { -15, -12, -8, -5, -2, 1, 4, 7, 10, 13, 25, 28, 31, 34, 37, 40, 43 },
+        new int[] { -20, -17, -14, -11, -8, -5, -2, 1, 4, 4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34, 37, 45, 60, 70, 111 },
+        new int[] { -18, -15, -12, -9, -6, -3, 0, 3, 6, 9, 12, 15, 18, 21, 21, 21, 24, 27, 30, 39 },
+        new int[] { -19, -16, -13, -10, -7, -4, -1, 2, 5, 8, 11, 12, 13, 14, 17, 20, 23, 26, 29, 32, 35, 38 },
+        new int[] { -21, -18, -15, -12, -9, -9, -6, -6, -3, 0, 3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36 },
+    };
 
-		//const int maxSizes = 1000000;
 
-		//int[] arr = GetArrayOfRandomInts(maxSizes, int.MinValue, int.MaxValue / 2).ToList().Distinct().Order().ToArray();
+    [TestMethod]
 
-		//Random random = new Random();
-		//for (int i = 0; i < arr.Length; i++)
-		//{
-		//	int indexToFind = random.Next(arr.Length);
-		//	Assert.IsTrue(Algorithms.BinarySearchIterative(arr, arr[indexToFind]) == indexToFind);
-		//	Assert.IsTrue(Algorithms.BinarySearchRecursive(arr, arr[indexToFind]) == indexToFind);
-		//}
+    public void TestBinarySearch()
+    {
+        // Assert can find number
+        foreach (int[] intArray in SortedInts)
+        {
+            List<int> intList = intArray.ToList();
+            for (int i = 0; i < intList.Count(); i++)
+            {
+                int numberToFind = intArray[i];
+                int indexOfFirstOccurrence = BinarySearch.MainIterative(intArray, numberToFind);
+                Assert.IsTrue(indexOfFirstOccurrence == intList.IndexOf(numberToFind));
 
-		//for (int i = 0; i < arr.Length / 2; i++)
-		//{
-		//	int intNotInArr = random.Next((int.MaxValue / 2) + 1, int.MaxValue);
-		//	Assert.IsTrue(Algorithms.BinarySearchIterative(arr, intNotInArr) == -1);
-		//	Assert.IsTrue(Algorithms.BinarySearchRecursive(arr, intNotInArr) == -1);
-		//}
-	}
+                indexOfFirstOccurrence = BinarySearch.MainRecursive(intArray, numberToFind);
+                Assert.IsTrue(indexOfFirstOccurrence == intList.IndexOf(numberToFind));
+            }
+        }
 
-	//const int sortingCapacity = 10000;
-	//const int sortingTests = 50;
+        // Assert -1 returned if number is not in array
+        int[] integers = new int[] { -18, -15, -12, -9, -6, -3, 0, 3, 6, 9, 12, 15, 18, 21, 21, 21, 24, 27, 30, 39 };
+        int[] nonExistentIntegers = new int[] { -20, -13, 1, 10, 50 };
 
-	//[TestMethod]
-	//public void TestBubbleSort()
-	//{
-	//	for (int i = 0; i < sortingTests; i++)
-	//	{
-	//		int[] testCase = GetArrayOfRandomInts(sortingCapacity);
-	//		Algorithms.BubbleSort(testCase);
-	//		AssertSortedList(testCase, SortingAlgorithm.BubbleSort);
-	//	}
-	//}
+        foreach (int nonExtentNumber in nonExistentIntegers)
+        {
+            Assert.IsTrue(BinarySearch.MainIterative(integers, nonExtentNumber) == -1);
+            Assert.IsTrue(BinarySearch.MainRecursive(integers, nonExtentNumber) == -1);
+        }
+    }
 
-	//[TestMethod]
-	//public void TestSelectionSort()
-	//{
-	//	for (int i = 0; i < sortingTests; i++)
-	//	{
-	//		int[] testCase = GetArrayOfRandomInts(sortingCapacity);
-	//		Algorithms.SelectionSort(testCase);
-	//		AssertSortedList(testCase, SortingAlgorithm.SelectionSort);
-	//	}
-	//}
+    //const int sortingCapacity = 10000;
+    //const int sortingTests = 50;
 
-	//[TestMethod]
-	//public void TestInsertionSort()
-	//{
-	//	for (int i = 0; i < sortingTests; i++)
-	//	{
-	//		int[] testCase = GetArrayOfRandomInts(sortingCapacity);
-	//		Algorithms.InsertionSort(testCase);
-	//		AssertSortedList(testCase, SortingAlgorithm.SelectionSort);
-	//	}
-	//}
+    //[TestMethod]
+    //public void TestBubbleSort()
+    //{
+    //	for (int i = 0; i < sortingTests; i++)
+    //	{
+    //		int[] testCase = GetArrayOfRandomInts(sortingCapacity);
+    //		Algorithms.BubbleSort(testCase);
+    //		AssertSortedList(testCase, SortingAlgorithm.BubbleSort);
+    //	}
+    //}
 
-	//[TestMethod]
-	//public void TestQuickSort()
-	//{
-	//	for (int i = 0; i < sortingTests; i++)
-	//	{
-	//		int[] testCase = GetArrayOfRandomInts(sortingCapacity);
-	//		Algorithms.QuickSort(testCase);
-	//		AssertSortedList(testCase, SortingAlgorithm.SelectionSort);
-	//	}
-	//}
+    //[TestMethod]
+    //public void TestSelectionSort()
+    //{
+    //	for (int i = 0; i < sortingTests; i++)
+    //	{
+    //		int[] testCase = GetArrayOfRandomInts(sortingCapacity);
+    //		Algorithms.SelectionSort(testCase);
+    //		AssertSortedList(testCase, SortingAlgorithm.SelectionSort);
+    //	}
+    //}
 
-	//[TestMethod]
-	//public void TestQuickSelect()
-	//{
-	//	asdfjasdfkj
-	//	Random random = new();
-	//	for (int i = 0; i < sortingTests; i++)
-	//	{
-	//		int[] testCase = [6, 9, 1, 10, 0, 20];
-	//		int[] testCaseCopy = new int[testCase.Length];
-	//		Array.Copy(testCase, 0, testCaseCopy, 0, testCase.Length);
-	//		int k = 3;
-	//		int kthLargestItem = Algorithms.QuickSelect(testCase, k);
-	//		Algorithms.QuickSort(testCaseCopy);
-	//		Assert.IsTrue(kthLargestItem == testCaseCopy[k - 1]);
-	//	}
-	//}
+    //[TestMethod]
+    //public void TestInsertionSort()
+    //{
+    //	for (int i = 0; i < sortingTests; i++)
+    //	{
+    //		int[] testCase = GetArrayOfRandomInts(sortingCapacity);
+    //		Algorithms.InsertionSort(testCase);
+    //		AssertSortedList(testCase, SortingAlgorithm.SelectionSort);
+    //	}
+    //}
 
-	//private int[] GetArrayOfRandomInts(int size, int min = int.MinValue, int max = int.MaxValue)
-	//{
-	//	int[] arr = new int[size];
-	//	Random random = new Random();
-	//	for (int i = 0; i < size; i++)
-	//	{
-	//		arr[i] = random.Next(min, max);
-	//	}
+    //[TestMethod]
+    //public void TestQuickSort()
+    //{
+    //	for (int i = 0; i < sortingTests; i++)
+    //	{
+    //		int[] testCase = GetArrayOfRandomInts(sortingCapacity);
+    //		Algorithms.QuickSort(testCase);
+    //		AssertSortedList(testCase, SortingAlgorithm.SelectionSort);
+    //	}
+    //}
 
-	//	return arr;
-	//}
+    //[TestMethod]
+    //public void TestQuickSelect()
+    //{
+    //	asdfjasdfkj
+    //	Random random = new();
+    //	for (int i = 0; i < sortingTests; i++)
+    //	{
+    //		int[] testCase = [6, 9, 1, 10, 0, 20];
+    //		int[] testCaseCopy = new int[testCase.Length];
+    //		Array.Copy(testCase, 0, testCaseCopy, 0, testCase.Length);
+    //		int k = 3;
+    //		int kthLargestItem = Algorithms.QuickSelect(testCase, k);
+    //		Algorithms.QuickSort(testCaseCopy);
+    //		Assert.IsTrue(kthLargestItem == testCaseCopy[k - 1]);
+    //	}
+    //}
 
-	//private void AssertSortedList(int[] arr, SortingAlgorithm algorithm)
-	//{
-	//	if (arr.Length <= 1)
-	//	{
-	//		return;
-	//	}
+    //private int[] GetArrayOfRandomInts(int size, int min = int.MinValue, int max = int.MaxValue)
+    //{
+    //	int[] arr = new int[size];
+    //	Random random = new Random();
+    //	for (int i = 0; i < size; i++)
+    //	{
+    //		arr[i] = random.Next(min, max);
+    //	}
 
-	//	for (int i = 1; i < arr.Length; i++)
-	//	{
-	//		Assert.IsTrue(arr[i - 1] <= arr[i], $"Failed for algorithm {algorithm}.");
-	//	}
-	//}
+    //	return arr;
+    //}
+
+    //private void AssertSortedList(int[] arr, SortingAlgorithm algorithm)
+    //{
+    //	if (arr.Length <= 1)
+    //	{
+    //		return;
+    //	}
+
+    //	for (int i = 1; i < arr.Length; i++)
+    //	{
+    //		Assert.IsTrue(arr[i - 1] <= arr[i], $"Failed for algorithm {algorithm}.");
+    //	}
+    //}
 }
 
 //public enum SortingAlgorithm
