@@ -1,7 +1,7 @@
 namespace Tests
 {
 	[TestClass]
-	public class UnitTest1
+	public class Sorting
 	{
 		[TestMethod]
 		public void TestMethod1()
