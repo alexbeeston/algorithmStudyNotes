@@ -1,1 +1,1 @@
-﻿1. 
+﻿1. Implement bubble sort with recursion; implement all with recursion to get really good at it?

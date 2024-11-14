@@ -1,6 +1,4 @@
-﻿using System.Numerics;
-
-namespace Algorithms;
+﻿namespace Algorithms.Algorithms;
 
 public class BinarySearch
 {
