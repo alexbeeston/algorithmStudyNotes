@@ -25,8 +25,8 @@ public class TestAlgorithms
         }
 
         // Assert -1 returned if number is not in array
-        int[] integers = new int[] { -18, -15, -12, -9, -6, -3, 0, 3, 6, 9, 12, 15, 18, 21, 21, 21, 24, 27, 30, 39 };
-        int[] nonExistentIntegers = new int[] { -20, -13, 1, 10, 50 };
+        int[] integers = [-18, -15, -12, -9, -6, -3, 0, 3, 6, 9, 12, 15, 18, 21, 21, 21, 24, 27, 30, 39];
+        int[] nonExistentIntegers = [-20, -13, 1, 10, 50];
 
         foreach (int nonExtentNumber in nonExistentIntegers)
         {
