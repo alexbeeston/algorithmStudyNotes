@@ -10,17 +10,17 @@ public class TestAlgorithms
     public void TestBinarySearch()
     {
         // Assert can find number
-        foreach (int[] intArray in TestUtils.SortedInts)
+        foreach (int[] arr in TestUtils.SortedInts)
         {
-            List<int> intList = intArray.ToList();
-            for (int i = 0; i < intList.Count(); i++)
+            List<int> list = arr.ToList();
+            for (int i = 0; i < list.Count(); i++)
             {
-                int numberToFind = intArray[i];
-                int indexOfFirstOccurrence = BinarySearch.MainIterative(intArray, numberToFind);
-                Assert.IsTrue(indexOfFirstOccurrence == intList.IndexOf(numberToFind));
+                int target = arr[i];
+                int indexOfFirstInstanceOfTarget = BinarySearch.MainIterative(arr, target);
+                Assert.IsTrue(indexOfFirstInstanceOfTarget == list.IndexOf(target));
 
-                indexOfFirstOccurrence = BinarySearch.MainRecursive(intArray, numberToFind);
-                Assert.IsTrue(indexOfFirstOccurrence == intList.IndexOf(numberToFind));
+                indexOfFirstInstanceOfTarget = BinarySearch.MainRecursive(arr, target);
+                Assert.IsTrue(indexOfFirstInstanceOfTarget == list.IndexOf(target));
             }
         }
 
