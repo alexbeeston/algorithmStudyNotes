@@ -11,7 +11,6 @@ public class Queue<T>
 {
 	public void Enqueue(T item)
 	{
-		ValidateState();
 		Node<T> node = new Node<T>(item);
 		if (FrontNode == null)
 		{
@@ -25,27 +24,28 @@ public class Queue<T>
 		}
 
 		Size++;
-		ValidateState();
 	}
 
 	public T Dequeue()
 	{
-		ValidateState();
-		Node<T> tempFrontNode = FrontNode;
-		FrontNode = tempFrontNode?.Next;
-		if (tempFrontNode?.Next == null)
+		if (Size == 0)
+		{
+			throw new InvalidOperationException(Utils.EmptyStructMessage);
+		}
+
+		T data = FrontNode.Data;
+		FrontNode = FrontNode.Next;
+		if (FrontNode == null)
 		{
 			RearNode = null;
 		}
 
 		Size--;
-		ValidateState();
-		return tempFrontNode.Data;
+		return data;
 	}
 
 	public T Peek()
 	{
-		ValidateState();
 		if (FrontNode == null)
 		{
 			throw new InvalidOperationException(Utils.EmptyStructMessage);
@@ -58,7 +58,6 @@ public class Queue<T>
 
 	public T Rear()
 	{
-		ValidateState();
 		if (RearNode == null)
 		{
 			throw new InvalidOperationException(Utils.EmptyStructMessage);
@@ -73,22 +72,13 @@ public class Queue<T>
 	{
 		get
 		{
-			ValidateState();
 			return Size == 0;
 		}
 	}
 
-	public int Size { get; set; } = 0;
+	public int Size { get; private set; }
 
 	private Node<T> FrontNode { get; set; }
 
 	private Node<T> RearNode { get; set; }
-
-	private void ValidateState()
-	{
-		if (FrontNode == null ^ RearNode == null)
-		{
-			throw new UnreachableException();
-		}
-	}
 }
