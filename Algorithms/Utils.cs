@@ -29,4 +29,6 @@ public class Utils
 		SwapItems(arr, i, right);
 		return i;
 	}
+
+	public const string EmptyStructMessage = "Data structure is empty";
 }

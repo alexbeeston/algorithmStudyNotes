@@ -58,7 +58,7 @@ public class Queue<T>
 		ValidateState();
 		if (FrontNode == null)
 		{
-			throw new Exception("Empty queue. I dont' really care if you throw an exception or use a sentinal value.");
+			throw new InvalidOperationException(Utils.EmptyStructMessage);
 		}
 		else
 		{
@@ -119,24 +119,4 @@ public class Queue<T>
 			throw new UnreachableException();
 		}
 	}
-}
-
-public class Node<T>
-{
-	/// <summary>
-	/// Instantiates a node.
-	public Node(T data)
-	{
-		Data = data;
-	}
-
-	/// <summary>
-	/// The next node in the queue.
-	/// </summary>
-	public Node<T> Next { get; set; }
-
-	/// <summary>
-	/// Data on the node.
-	/// </summary>
-	public T Data { get; set; }
 }
