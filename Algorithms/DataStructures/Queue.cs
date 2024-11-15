@@ -9,9 +9,6 @@ namespace Algorithms.DataStructures;
 
 public class Queue<T>
 {
-	/// <summary>
-	/// Add an element to the end of the queue.
-	/// </summary>
 	public void Enqueue(T item)
 	{
 		ValidateState();
@@ -31,10 +28,6 @@ public class Queue<T>
 		ValidateState();
 	}
 
-	/// <summary>
-	/// Remove an element from the front of the queue.
-	/// </summary>
-	/// <returns>The front element in the queue, or null if the queue is empty.</returns>
 	public T Dequeue()
 	{
 		ValidateState();
@@ -50,9 +43,6 @@ public class Queue<T>
 		return tempFrontNode.Data;
 	}
 
-	/// <summary>
-	/// Get the front element without removing it.
-	/// </summary>
 	public T Peek()
 	{
 		ValidateState();
@@ -66,15 +56,12 @@ public class Queue<T>
 		}
 	}
 
-	/// <summary>
-	/// Get the rear element without removing it.
-	/// </summary>
 	public T Rear()
 	{
 		ValidateState();
 		if (RearNode == null)
 		{
-			throw new Exception("Empty queue. I dont' really care if you throw an exception or use a sentinal value.");
+			throw new InvalidOperationException(Utils.EmptyStructMessage);
 		}
 		else
 		{
@@ -82,9 +69,6 @@ public class Queue<T>
 		}
 	}
 
-	/// <summary>
-	/// Whether the queue is empty.
-	/// </summary>
 	public bool IsEmpty
 	{
 		get
@@ -94,24 +78,12 @@ public class Queue<T>
 		}
 	}
 
-	/// <summary>
-	/// The number of items in the queue.
-	/// </summary>
 	public int Size { get; set; } = 0;
 
-	/// <summary>
-	/// The front element of the queue.
-	/// </summary>
 	private Node<T> FrontNode { get; set; }
 
-	/// <summary>
-	/// The rear element of the queue.
-	/// </summary>
 	private Node<T> RearNode { get; set; }
 
-	/// <summary>
-	/// Throws an <see cref="UnreachableException"/> if the front or rear node is null but not the other.
-	/// </summary>
 	private void ValidateState()
 	{
 		if (FrontNode == null ^ RearNode == null)
