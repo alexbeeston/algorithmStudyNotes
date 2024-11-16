@@ -40,7 +40,7 @@ public class TestAlgorithms
     [TestMethod]
     public void TestQuickSelect()
     {
-        foreach (int[] arr in TestUtils.UniqueArrays)
+        foreach (int[] arr in TestUtils.UnsortedArrays)
         {
             int[] sortedCopy = new int[arr.Length];
             Array.Copy(arr, 0, sortedCopy, 0, arr.Length);

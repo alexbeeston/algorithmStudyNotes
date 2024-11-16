@@ -20,6 +20,7 @@ public static class TestUtils
     /// </summary>
     public static readonly List<int[]> UnsortedArrays = new List<int[]>
     {
+        new int[] { 3, 3, 3, 2 },
         new int[] { 1 },
         new int[] { 3, -1, 4, -1, 5, 9, -2, 6, 5, 3, -5, 8, 9, -7, 9, 3, -2, 6, 5, -3 },
         new int[] { -10, 4, 3, -5, 6, 4, -8, 7, 2, -3, 5, -6, 4, 2, -1, 0, 3, -4, 6, -2, 1, -7 },
