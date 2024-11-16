@@ -24,14 +24,14 @@ public static class QuickSelect
         else if (arr[k - 1] < arr[pivotIndex])
         {
             int[] copy = new int[pivotIndex];
-            Array.Copy(arr, 0, copy, 0, pivotIndex - 1);
+            Array.Copy(arr, 0, copy, 0, pivotIndex);
             return Main(copy, k);
         }
         else
         {
             int[] copy = new int[arr.Length - pivotIndex - 1];
-            Array.Copy(arr, pivotIndex + 1, copy, 0, arr.Length - pivotIndex);
-            return Main(copy, k - 1 - pivotIndex);
+            Array.Copy(arr, pivotIndex + 1, copy, 0, arr.Length - pivotIndex - 1);
+            return Main(copy, k - pivotIndex - 1);
         }
     }
 }
