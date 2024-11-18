@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Algorithms.Other
+﻿namespace Algorithms.Algorithms
 {
-    internal class Knapsack
+    public static class Knapsack
     {
+        public static double Main(int[] weights, double[] values, int capacity)
+        {
+            return 0;
+        }
     }
 }
