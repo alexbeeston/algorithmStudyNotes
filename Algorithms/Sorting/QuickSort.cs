@@ -14,7 +14,7 @@ public static class QuickSort
             return;
         }
 
-        int pivot = Utils.QuickPivot(arr, left, right);
+        int pivot = Utils.Partition(arr, left, right);
         QuickSortWorker(arr, left, pivot - 1);
         QuickSortWorker(arr, pivot + 1, right);
     }

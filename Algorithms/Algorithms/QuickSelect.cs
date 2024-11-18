@@ -16,12 +16,12 @@ public static class QuickSelect
             return arr[0];
         }
 
-        int pivotIndex = Utils.QuickPivot(arr, 0, arr.Length - 1);
+        int pivotIndex = Utils.Partition(arr, 0, arr.Length - 1);
         if (pivotIndex == k - 1)
         {
             return arr[pivotIndex];
         }
-        else if (arr[k - 1] < arr[pivotIndex])
+        else if (k - 1 < pivotIndex)
         {
             int[] copy = new int[pivotIndex];
             Array.Copy(arr, 0, copy, 0, pivotIndex);

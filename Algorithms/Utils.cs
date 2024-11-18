@@ -14,7 +14,7 @@ public class Utils
     /// left or right of the pivot, then returns the pivot. Items equal to the pivot are placed right of the pivot.
     /// </summary>
     /// <returns>The index of the pivot.</returns>
-    public static int QuickPivot(int[] arr, int left, int right)
+    public static int Partition(int[] arr, int left, int right)
     {
         int i = left; // all items left of i are less than arr[right]
         for (int j = left; j <= right; j++)
