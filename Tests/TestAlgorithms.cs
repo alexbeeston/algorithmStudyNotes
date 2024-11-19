@@ -98,7 +98,7 @@ public class TestAlgorithms
             }
         }
 
-        double testMaxValue = Knapsack.Main(weights, values, capacity);
+        double testMaxValue = Knapsack_01.Main(weights, values, capacity);
         Assert.IsTrue(testMaxValue == trueMaxValue);
     }
 }
