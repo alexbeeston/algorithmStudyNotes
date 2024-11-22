@@ -2,7 +2,7 @@
 
 public static class Knapsack_01
 {
-    public static double Main(int[] weights, double[] values, int capacity)
+    public static bool[] Main(int[] weights, double[] values, int capacity)
     {
         int numItems = weights.Length;
         double[,] dpTable = new double[numItems, capacity + 1];
@@ -25,6 +25,23 @@ public static class Knapsack_01
             }
         }
 
-        return dpTable[numItems - 1, capacity];
+        bool[] isInKnapsack = new bool[numItems];
+
+        int testWeight = capacity;
+        for (int i = numItems - 1; i > 0; i--)
+        {
+            if (dpTable[i, testWeight] == dpTable[i - 1, testWeight])
+            {
+                isInKnapsack[i] = false;
+            }
+            else
+            {
+                isInKnapsack[i] = true;
+                testWeight -= weights[i];
+            }
+        }
+
+        isInKnapsack[0] = dpTable[0, testWeight] > 0;
+        return isInKnapsack;
     }
 }

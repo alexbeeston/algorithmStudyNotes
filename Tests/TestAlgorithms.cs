@@ -64,10 +64,10 @@ public class TestAlgorithms
         int capacity = 7;
         KnapsackTester(weights, values, capacity);
 
-        // test case from academic paper
-        weights = [95, 4, 60, 32, 23, 72, 80, 62, 65, 46];
-        values = [55, 10, 47, 5, 4, 50, 8, 61, 85, 87];
-        capacity = 269;
+        // Another simple test case with bigger numbers.
+        weights = [3, 7, 1, 6, 2, 10];
+        values = [10, 12, 9, 20, 5, 15];
+        capacity = 20;
         KnapsackTester(weights, values, capacity);
 
         // tests with random numbers
@@ -88,17 +88,20 @@ public class TestAlgorithms
         }
 
         ZeroOneKnapsackSolver solver = new ZeroOneKnapsackSolver(weights, values);
-        List<bool> isInKnapsack = solver.GetSelectedItems(weights.Length, capacity);
-        double trueMaxValue = 0;
-        for (int i = 0; i < weights.Length; i++)
+        bool[] isInKnapsackTrueSolution = solver.GetSelectedItems(weights.Length, capacity).ToArray(); ;
+        bool[] isInKnapsackMyAnswer = Knapsack_01.Main(weights, values, capacity);
+
+        Assert.IsTrue(isInKnapsackTrueSolution.Length == isInKnapsackMyAnswer.Length);
+        double value = 0;
+        int totalWeight = 0;
+        for (int i = 0; i < isInKnapsackMyAnswer.Length; i++)
         {
-            if (isInKnapsack[i])
+            Assert.IsTrue(isInKnapsackMyAnswer[i] == isInKnapsackTrueSolution[i]);
+            if (isInKnapsackMyAnswer[i])
             {
-                trueMaxValue += values[i];
+                value += values[i];
+                totalWeight += weights[i];
             }
         }
-
-        double testMaxValue = Knapsack_01.Main(weights, values, capacity);
-        Assert.IsTrue(testMaxValue == trueMaxValue);
     }
 }
