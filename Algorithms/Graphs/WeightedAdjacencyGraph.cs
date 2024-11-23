@@ -1,4 +1,6 @@
-﻿namespace Algorithms.Graphs;
+﻿using System.Security.Cryptography.X509Certificates;
+
+namespace Algorithms.Graphs;
 
 public class WeightedAdjacencyGraph
 {
@@ -21,7 +23,13 @@ public class WeightedAdjacencyGraph
             throw new ArgumentException("Invalid vertex index");
         }
 
+        if (Edges[sourceVertex].Any(x => x.Destination == destinationVertex))
+        {
+            throw new Exception("Edge already exists");
+        }
+
         Edges[sourceVertex].Add(new WeightedEdge(destinationVertex, weight));
+        Edges[sourceVertex] = Edges[sourceVertex].OrderBy(x => x.Destination).ToList();
     }
 
     public List<WeightedEdge>[] Edges { get; set; }

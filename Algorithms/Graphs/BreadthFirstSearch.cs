@@ -7,22 +7,22 @@ public static class BreadthFirstSearch
         bool[] visited = new bool[graph.NumVertices];
         DataStructures.Queue<int> queue = new DataStructures.Queue<int>();
         queue.Enqueue(rootVertex);
-        List<int> visitedVertices = new List<int>();
+        List<int> explorationOrder = new List<int>(); // could optimize for space by multi-purposing the queue; just reverse the order of the queue and that's what we return.
         while (!queue.IsEmpty)
         {
-            int vertexBeingVisited = queue.Dequeue();
-            foreach (WeightedEdge edge in graph.Edges[vertexBeingVisited])
+            int vertexBeingExplored = queue.Dequeue();
+            foreach (WeightedEdge edge in graph.Edges[vertexBeingExplored])
             {
                 if (!visited[edge.Destination])
                 {
                     queue.Enqueue(edge.Destination);
-                    visited[vertexBeingVisited] = true;
+                    visited[edge.Destination] = true;
                 }
             }
 
-            visitedVertices.Add(vertexBeingVisited);
+            explorationOrder.Add(vertexBeingExplored);
         }
 
-        return visitedVertices;
+        return explorationOrder;
     }
 }
