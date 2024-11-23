@@ -2,6 +2,12 @@
 
 public static class BreadthFirstSearch
 {
+    /// <summary>
+    /// For any node X, if X has edges to multiple nodes, the algorithm will visit the node with the smaller weight first.
+    /// </summary>
+    /// <param name="graph"></param>
+    /// <param name="rootVertex"></param>
+    /// <returns></returns>
     public static List<int> Main(WeightedAdjacencyGraph graph, int rootVertex)
     {
         bool[] visited = new bool[graph.NumVertices];
