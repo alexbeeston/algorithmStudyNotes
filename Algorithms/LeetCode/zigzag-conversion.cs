@@ -1,6 +1,4 @@
-﻿using System.Text;
-
-public class Solution
+﻿public class Solution
 {
     public string Convert(string s, int numRows)
     {
@@ -9,46 +7,35 @@ public class Solution
             return s;
         }
 
-        int numColumns = ((s.Length / (2 * numRows)) + 1) * numRows;
-        char[,] chars = new char[numRows, numColumns];
-        for (int i = 0; i < s.Length; i++)
-        {
-            (int rowInsertIndex, int columnInsertIndex) = GetCoordinates(i, numRows, s.Length);
-            chars[rowInsertIndex, columnInsertIndex] = s[i];
-        }
-
-        StringBuilder sb = new StringBuilder();
+        char[] answer = new char[s.Length];
+        int answerIndex = 0;
+        int zigGroupLength = 2 * (numRows - 1);
         for (int i = 0; i < numRows; i++)
         {
-            for (int j = 0; j < numColumns; j++)
+            int stringIndex = i;
+            if (i == 0 || i == numRows - 1)
             {
-                if (chars[i, j] != default)
+                while (stringIndex < s.Length)
                 {
-                    sb.Append(chars[i, j]);
+                    answer[answerIndex] = s[stringIndex];
+                    stringIndex += zigGroupLength;
+                    answerIndex++;
+                }
+            }
+            else
+            {
+                int gapLength = 2 * (numRows - 1 - i);
+                bool invertGap = false;
+                while (stringIndex < s.Length)
+                {
+                    answer[answerIndex] = s[stringIndex];
+                    stringIndex += invertGap ? zigGroupLength - gapLength : gapLength;
+                    answerIndex++;
+                    invertGap = !invertGap;
                 }
             }
         }
 
-        return sb.ToString();
-    }
-
-    public static (int row, int column) GetCoordinates(int stoppingIndex, int numRows, int stringLength)
-    {
-        int row;
-        int columnOffset;
-        int remainder = stoppingIndex % (2 * (numRows - 1));
-        if (remainder < numRows)
-        {
-            row = remainder;
-            columnOffset = 0;
-        }
-        else
-        {
-            row = (2 * (numRows - 1)) - remainder;
-            columnOffset = remainder - numRows + 1;
-        }
-
-        int zigGroup = stoppingIndex / (2 * (numRows - 1));
-        return (row, zigGroup * (numRows - 1) + columnOffset);
+        return new string(answer);
     }
 }
