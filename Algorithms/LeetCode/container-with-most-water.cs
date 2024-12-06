@@ -6,17 +6,26 @@ using System.Threading.Tasks;
 
 namespace Algorithms.LeetCode;
 
+/* Things I learned
+ * - consider the processing order, especially of a sorted list e.g., if you have a list of line numbers in a file to edit, start from the bottom and work up so the line numbers are preserved as you work up.
+ */
+
 public class container_with_most_water
 {
     public int MaxArea(int[] height)
     {
         int maxArea = 0;
-        for (int i = 0; i < height.Length; i++)
+        for (int i = height.Length - 1; i < 0; i--)
         {
-            for (int j = i + 1; j < height.Length; j++)
+            int heightOfMaxArea = -1;
+            for (int j = 0; j < i; j++)
             {
-                int candidateArea = Math.Min(height[i], height[j]) * (j - i);
-                maxArea = Math.Max(maxArea, candidateArea);
+                if (height[j] > heightOfMaxArea)
+                {
+                    int candidateArea = Math.Min(height[i], height[j]) * (i - j);
+                    maxArea = Math.Max(maxArea, candidateArea);
+                    heightOfMaxArea = height[j];
+                }
             }
         }
 
