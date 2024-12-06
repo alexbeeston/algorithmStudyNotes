@@ -1,4 +1,8 @@
-﻿namespace Algorithms.LeetCode;
+﻿/*
+ * - don't hesitate to use recursion where it makes sense; don't be afraid of the function call overhead, it doesn't affect the runt time, and its so fast that I don't need to worry about it.
+ */
+
+namespace Algorithms.LeetCode;
 
 public class longest_substring_without_repeating_characters
 {

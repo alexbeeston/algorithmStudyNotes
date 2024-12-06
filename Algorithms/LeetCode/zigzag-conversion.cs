@@ -1,4 +1,8 @@
-﻿public class Solution
+﻿/*
+ * - while I'm practicing, yes, get a correct solution, then optimize, but don't be afraid to try crazy optimizations
+ */
+
+public class Solution
 {
     public string Convert(string s, int numRows)
     {
