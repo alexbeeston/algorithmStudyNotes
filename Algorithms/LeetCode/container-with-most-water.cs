@@ -5,6 +5,7 @@
  * - processing a list from both left and right sides is a thing.
  * - optimizing the function without changing the run time may get you past the timeout period; don't be afraid to try.
  * - in trying to optimize the function without changing the run time, that may help you see a solution in a shorter runtime.
+ * - consider what you're moving away from in addition to what you may be moving towards.
  */
 
 public class container_with_most_water
