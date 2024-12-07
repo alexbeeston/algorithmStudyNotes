@@ -1,18 +1,10 @@
 ﻿using Algorithms.Graphs;
-using Algorithms.LeetCode;
 
 namespace Tests;
 
 [TestClass]
 public class TestGraphs
 {
-    [TestMethod]
-    public void Dog()
-    {
-        container_with_most_water s = new();
-        s.MaxArea([1, 2, 4, 3]);
-    }
-
     [TestInitialize]
     public void Init()
     {
