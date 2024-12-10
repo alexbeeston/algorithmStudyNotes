@@ -14,50 +14,40 @@ public class longest_palindromic_substring
 		int maxStartingIndex = -1;
 		for (int i = 0; i < s.Length; i++)
 		{
-			int oddLength = GetPalindromicSize(s, i, false) * 2 + 1;
-			int evenLength = 0;
-			if (i < s.Length - 1 && s[i] == s[i + 1])
-			{
-				evenLength = GetPalindromicSize(s, i, true) * 2 + 2;
-			}
+			int leftOdd = GetLeftMostPalindromicIndex(s, i, i);
+			int leftEven = GetLeftMostPalindromicIndex(s, i, i + 1);
 
+			int oddLength = (i - leftOdd) * 2 + 1;
 			if (oddLength > maxLength)
 			{
+				maxStartingIndex = leftOdd;
 				maxLength = oddLength;
-				maxStartingIndex = i - ((oddLength - 1) / 2);
 			}
 
+			int evenLength = (i - leftEven) * 2 + 2;
 			if (evenLength > maxLength)
 			{
+				maxStartingIndex = leftEven;
 				maxLength = evenLength;
-				maxStartingIndex = i - ((evenLength - 2) / 2);
-
 			}
 		}
 
 		return s.Substring(maxStartingIndex, maxLength);
 	}
 
-	public int GetPalindromicSize(string s, int center, bool isEven, int knownPalindromicLength = 0)
+	public int GetLeftMostPalindromicIndex(string s, int left, int right)
 	{
-		int leftTest = center - knownPalindromicLength - 1;
-		int rightTest = center + knownPalindromicLength + 1;
-		if (isEven)
+		if (left < 0 || right > s.Length - 1)
 		{
-			rightTest++;
+			return left + 1;
 		}
-
-		if (leftTest < 0)
+		else if (s[left] == s[right])
 		{
-			return knownPalindromicLength;
-		}
-		else if (rightTest > s.Length - 1)
-		{
-			return knownPalindromicLength;
+			return GetLeftMostPalindromicIndex(s, left - 1, right + 1);
 		}
 		else
 		{
-			return s[leftTest] == s[rightTest] ? GetPalindromicSize(s, center, isEven, knownPalindromicLength + 1) : knownPalindromicLength;
+			return left + 1;
 		}
 	}
 }
