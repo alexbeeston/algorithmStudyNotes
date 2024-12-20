@@ -1,6 +1,42 @@
 ﻿namespace Algorithms.LeetCode;
 
-public class palindrome_number
+public class palindrome_number_reverseIntegerSolution // beats 67.92% on runtime
+{
+    public bool IsPalindrome(int x)
+    {
+        if (x < 0)
+        {
+            return false;
+        }
+
+        int originalNumber = x;
+        int reversedNumber = 0;
+        while (x != 0)
+        {
+            if (reversedNumber > 214748364)
+            {
+                return false;
+            }
+
+            int rightMostDigit = x % 10;
+            reversedNumber *= 10;
+            reversedNumber += rightMostDigit;
+
+            if (reversedNumber < 0)
+            {
+                return false;
+            }
+
+            x -= rightMostDigit;
+            x /= 10;
+        }
+
+        return reversedNumber == originalNumber;
+    }
+}
+
+
+public class palindrome_number_leftRightDigitComparison // beats 26.7% on runtime
 {
     public bool IsPalindrome(int x)
     {
@@ -23,52 +59,31 @@ public class palindrome_number
         return NumericPalindromeHelper(x, orderOfMagnitude);
     }
 
-    /// <summary>
-    /// Assumes x > 0
-    /// </summary>
-    public bool NumericPalindromeHelper(double x, int orderOfMagnitude)
+    public bool NumericPalindromeHelper(int x, int expectedOrderOfMagnitude)
     {
-        if (orderOfMagnitude < 0)
-        {
-            return false;
-        }
-        else if (orderOfMagnitude == 0)
+        if (expectedOrderOfMagnitude == 0)
         {
             return true;
         }
-        else if (orderOfMagnitude == 1)
+        else if (expectedOrderOfMagnitude == 1)
         {
             return x % 11 == 0;
         }
+
+        int rightMostDigit = x % 10;
+        int powerOfTen = (int)Math.Pow(10, expectedOrderOfMagnitude);
+        int leftMostDigit = x / powerOfTen;
+        if (rightMostDigit == leftMostDigit)
+        {
+            x -= rightMostDigit;
+            x -= leftMostDigit * powerOfTen;
+            x /= 10;
+            return NumericPalindromeHelper(x, expectedOrderOfMagnitude - 2);
+        }
         else
         {
-            double rightMostDigit = x % 10;
-            if (rightMostDigit == 0)
-            {
-                return false;
-            }
-
-            double powerOfTen = Math.Pow(10, orderOfMagnitude);
-            x -= powerOfTen * rightMostDigit;
-            if (x <= 0 || x > powerOfTen)
-            {
-                return false;
-            }
-            else
-            {
-                x -= rightMostDigit;
-                if (x >= (powerOfTen / 10))
-                {
-                    x /= 10;
-                }
-
-                if (x == 0)
-                {
-                    return true;
-                }
-
-                return NumericPalindromeHelper(x, orderOfMagnitude - 2);
-            }
+            return false;
         }
     }
 }
+
