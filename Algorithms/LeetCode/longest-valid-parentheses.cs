@@ -2,50 +2,37 @@
 
 public class longest_valid_parentheses
 {
-	public int LongestValidParentheses(string s)
-	{
-			// ()(()
-			// ()(())
-			// ()(()))
-			// "(()(((()" stack size 4, numPops = 2, last pop @ i = 2 maxI = 7
+    public int LongestValidParentheses(string s)
+    {
+        int i = 0;
+        int longestValidParenthesis = 0;
+        Stack<int> stack = new Stack<int>();
+        int startIndexOfCurrentCandidate = 0;
+        while (i < s.Length)
+        {
+            if (s[i] == '(')
+            {
+                stack.Push(i);
+            }
+            else
+            {
+                if (stack.Count == 0)
+                {
+                    longestValidParenthesis = Math.Max(longestValidParenthesis, i - startIndexOfCurrentCandidate);
+                    startIndexOfCurrentCandidate = i + 1;
+                }
+                else
+                {
+                    stack.Pop();
+                }
+            }
 
-		int i = 0;
-		int maxFoundValidParentheses = 0;
-		int lastValidSize = 0;
-		while (i < s.Length)
-		{
-			int numPops = 0;
-			int stackSize = 0;
-			do
-			{
-				if (s[i] == '(')
-				{
-					stackSize++;
-				}
-				else
-				{
-					if (stackSize > 0)
-					{
-						numPops++;
-					}
+            i++;
+        }
 
-					stackSize--;
-				}
+        int startOfValid = stack.Count == 0 ? startIndexOfCurrentCandidate : stack.Peek();
+        longestValidParenthesis = Math.Max(longestValidParenthesis, i - startOfValid - 1);
 
-				i++;
-			}
-			while (i < s.Length && stackSize > 0);
-
-			int currentValidSize = numPops * 2;
-			if (stackSize == 0)
-			{
-				currentValidSize += lastValidSize;
-			}
-
-			maxFoundValidParentheses = Math.Max(maxFoundValidParentheses, currentValidSize);
-			lastValidSize = currentValidSize;
-		}
-
-		return maxFoundValidParentheses;
-	}
+        return longestValidParenthesis;
+    }
 }
