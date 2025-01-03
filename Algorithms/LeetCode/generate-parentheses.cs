@@ -15,17 +15,14 @@ public class Generate_parentheses
         {
             possibilities.Add(prefix);
         }
-        else if (openPairs == 0)
+
+        if (remainingPairs > 0)
         {
             Helper(possibilities, prefix + "(", openPairs + 1, remainingPairs - 1);
         }
-        else if (remainingPairs == 0)
+
+        if (openPairs > 0)
         {
-            Helper(possibilities, prefix + ")", openPairs - 1, remainingPairs);
-        }
-        else
-        {
-            Helper(possibilities, prefix + "(", openPairs + 1, remainingPairs - 1);
             Helper(possibilities, prefix + ")", openPairs - 1, remainingPairs);
         }
     }
