@@ -30,9 +30,7 @@ public class longest_valid_parentheses
             i++;
         }
 
-        int startOfValid = stack.Count == 0 ? startIndexOfCurrentCandidate : stack.Peek();
-        longestValidParenthesis = Math.Max(longestValidParenthesis, i - startOfValid - 1);
-
-        return longestValidParenthesis;
+        int startOfValid = stack.Count == 0 ? startIndexOfCurrentCandidate : stack.Peek() + 1;
+        return Math.Max(longestValidParenthesis, i - startOfValid);
     }
 }
