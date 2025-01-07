@@ -2,55 +2,33 @@
 
 public class longest_valid_parentheses
 {
-	public int LongestValidParentheses(string s)
-	{
-		int longestValidParenthesis = 0;
-		Stack<int> stack = new Stack<int>();
-		int startIndexOfCurrentCandidate = 0;
+    public int LongestValidParentheses(string s)
+    {
+        Stack<int> stack = new Stack<int>();
+        int maxLength = 0;
+        stack.Push(-1);
 
-		for (int i = 0; i < s.Length; i++)
-		{
-			if (s[i] == '(')
-			{
-				stack.Push(i);
-			}
-			else
-			{
-				if (stack.Count == 0)
-				{
-					// we didn't find a new max length
+        for (int i = 0; i < s.Length; i++)
+        {
+            if (s[i] == '(')
+            {
+                stack.Push(i);
+            }
+            else
+            {
+                stack.Pop();
 
-				}
-				else
-				{
-					stack.Pop();
-				}
-			}
-		}
+                if (stack.Count == 0)
+                {
+                    stack.Push(i);
+                }
+                else
+                {
+                    maxLength = Math.Max(maxLength, i - stack.Peek());
+                }
+            }
+        }
 
-		while (i < s.Length)
-		{
-			if (s[i] == '(')
-			{
-				stack.Push(i);
-			}
-			else
-			{
-				if (stack.Count == 0)
-				{
-					longestValidParenthesis = Math.Max(longestValidParenthesis, i - startIndexOfCurrentCandidate);
-					startIndexOfCurrentCandidate = i + 1;
-				}
-				else
-				{
-					stack.Pop();
-				}
-			}
-
-			i++;
-		}
-
-		int startOfValid = stack.Count == 0 ? startIndexOfCurrentCandidate : stack.Peek() + 1;
-		return Math.Max(longestValidParenthesis, i - startOfValid);
-	}
+        return maxLength;
+    }
 }
