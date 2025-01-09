@@ -13,7 +13,7 @@ public class edit_distance
             foreach (string word in wordsToExplore)
             {
                 int originalMinDistance = minDistance;
-                minDistance = Math.Min(minDistance, Modify(words, word, word2, words[word]));
+                minDistance = Math.Min(minDistance, Modify(words, word, word2, minDistance));
                 if (minDistance == originalMinDistance)
                 {
                     // explore via inserting
@@ -35,7 +35,7 @@ public class edit_distance
 
     private int Modify(Dictionary<string, int> words, string word, string target, int minDistance)
     {
-        int newDistance = minDistance + 1;
+        int currentDistance = words[word];
         for (int i = 0; i < word.Length; i++)
         {
             foreach (char c in target)
@@ -45,11 +45,11 @@ public class edit_distance
                 string newWord = new string(array);
                 if (newWord == target)
                 {
-                    return newDistance;
+                    return currentDistance + 1;
                 }
-                else
+                else if (minDistance - currentDistance > 2) // only need to explore the word if it has a chance of being the next new min distance.
                 {
-                    words.TryAdd(newWord, newDistance);
+                    words.TryAdd(newWord, currentDistance + 1);
                 }
             }
         }
