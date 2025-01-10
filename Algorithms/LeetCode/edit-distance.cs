@@ -12,18 +12,7 @@ public class edit_distance
         {
             foreach (string word in wordsToExplore)
             {
-                int originalMinDistance = minDistance;
-                minDistance = Math.Min(minDistance, Modify(words, word, word2, minDistance));
-                if (minDistance == originalMinDistance)
-                {
-                    // explore via inserting
-                }
-
-                if (minDistance == originalMinDistance)
-                {
-                    // explore via deleting
-                }
-
+                minDistance = Math.Min(minDistance, Explore(words, word, word2, minDistance));
                 words[word] = minDistance;
             }
 
@@ -33,25 +22,67 @@ public class edit_distance
         return minDistance;
     }
 
-    private int Modify(Dictionary<string, int> words, string word, string target, int minDistance)
+    private int Explore(Dictionary<string, int> words, string word, string target, int minDistance)
     {
         int currentDistance = words[word];
-        for (int i = 0; i < word.Length; i++)
+        string newWord;
+        int potentiallyNewDistance;
+        foreach (char c in target)
         {
-            foreach (char c in target)
+            for (int i = 0; i < word.Length; i++)
             {
+                // modify
                 char[] array = word.ToCharArray();
                 array[i] = c;
-                string newWord = new string(array);
-                if (newWord == target)
+                newWord = new string(array);
+                potentiallyNewDistance = CheckForTarget(words, newWord, target, minDistance, currentDistance);
+                if (potentiallyNewDistance < minDistance)
                 {
-                    return currentDistance + 1;
+                    return potentiallyNewDistance;
                 }
-                else if (minDistance - currentDistance > 2) // only need to explore the word if it has a chance of being the next new min distance.
+
+                // insert
+                newWord = word.Insert(i, c.ToString());
+                potentiallyNewDistance = CheckForTarget(words, newWord, target, minDistance, currentDistance);
+                if (potentiallyNewDistance < minDistance)
                 {
-                    words.TryAdd(newWord, currentDistance + 1);
+                    return potentiallyNewDistance;
                 }
             }
+
+            // insert at end
+            newWord = word.Insert(word.Length, c.ToString());
+            potentiallyNewDistance = CheckForTarget(words, newWord, target, minDistance, currentDistance);
+            if (potentiallyNewDistance < minDistance)
+            {
+                return potentiallyNewDistance;
+            }
+        }
+
+        for (int i = 0; i < word.Count(); i++)
+        {
+            // delete
+            newWord = word.Remove(i, 1);
+            potentiallyNewDistance = CheckForTarget(words, newWord, target, minDistance, currentDistance);
+            if (potentiallyNewDistance < minDistance)
+            {
+                return potentiallyNewDistance;
+            }
+        }
+
+
+        return minDistance;
+    }
+
+    private int CheckForTarget(Dictionary<string, int> words, string newWord, string target, int minDistance, int currentDistance)
+    {
+        if (newWord == target)
+        {
+            return currentDistance + 1;
+        }
+        else
+        {
+            words.TryAdd(newWord, currentDistance + 1);
         }
 
         return minDistance;
