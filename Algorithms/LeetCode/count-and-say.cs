@@ -37,4 +37,33 @@ public class count_and_say
 			return s.ToString();
 		}
 	}
+
+	// iterative
+	//public string CountAndSay(int n)
+	//{
+	//	string s = "1";
+	//	StringBuilder sb = new();
+	//	for (int loopCounter = 2; loopCounter <= n; loopCounter++)
+	//	{
+	//		int i = 0;
+	//		int j = 0;
+	//		sb.Clear();
+	//		while (i < s.Length)
+	//		{
+	//			while (i + j < s.Length && s[i] == s[i + j])
+	//			{
+	//				j++;
+	//			}
+
+	//			sb.Append(j);
+	//			sb.Append(s[i]);
+	//			i += j;
+	//			j = 0;
+	//		}
+
+	//		s = sb.ToString();
+	//	}
+
+	//	return s;
+	//}
 }
