@@ -2,6 +2,7 @@
 
 public class edit_distance
 {
+    private int AllTimeMaxDistance = 0;
     public int MinDistance(string word1, string word2)
     {
         Dictionary<string, int> words = new();
@@ -71,11 +72,13 @@ public class edit_distance
         }
 
 
+        Console.WriteLine(words.Count);
         return minDistance;
     }
 
     private int CheckForTarget(Dictionary<string, int> words, string newWord, string target, int minDistance, int currentDistance)
     {
+        AllTimeMaxDistance = Math.Max(AllTimeMaxDistance, currentDistance + 1);
         if (newWord == target)
         {
             return currentDistance + 1;
