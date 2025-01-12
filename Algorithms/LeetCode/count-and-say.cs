@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 
 namespace Algorithms.LeetCode;
 
-public class count_and_say
+public class count_and_say_recursive
 {
-	// recursive
 	public string CountAndSay(int n)
 	{
 		if (n == 1)
@@ -38,32 +33,33 @@ public class count_and_say
 		}
 	}
 
-	// iterative
-	//public string CountAndSay(int n)
-	//{
-	//	string s = "1";
-	//	StringBuilder sb = new();
-	//	for (int loopCounter = 2; loopCounter <= n; loopCounter++)
-	//	{
-	//		int i = 0;
-	//		int j = 0;
-	//		sb.Clear();
-	//		while (i < s.Length)
-	//		{
-	//			while (i + j < s.Length && s[i] == s[i + j])
-	//			{
-	//				j++;
-	//			}
+}
+public class count_and_say_iterative
+{
+	public string CountAndSay(int n)
+	{
+		string s = "1";
+		for (int loopCounter = 2; loopCounter <= n; loopCounter++)
+		{
+			int i = 0;
+			int j = 0;
+			StringBuilder sb = new();
+			while (i < s.Length)
+			{
+				while (i + j < s.Length && s[i] == s[i + j])
+				{
+					j++;
+				}
 
-	//			sb.Append(j);
-	//			sb.Append(s[i]);
-	//			i += j;
-	//			j = 0;
-	//		}
+				sb.Append(j);
+				sb.Append(s[i]);
+				i += j;
+				j = 0;
+			}
 
-	//		s = sb.ToString();
-	//	}
+			s = sb.ToString();
+		}
 
-	//	return s;
-	//}
+		return s;
+	}
 }
