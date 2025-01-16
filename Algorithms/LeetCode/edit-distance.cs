@@ -1,93 +1,39 @@
-﻿namespace algorithms.leetcode;
+﻿using Algorithms.LeetCode;
+
+namespace algorithms.leetcode;
 
 public class edit_distance
 {
     private int AllTimeMaxDistance = 0;
     public int MinDistance(string word1, string word2)
     {
-        Dictionary<string, int> words = new();
-        words.Add(word1, 0);
-        int minDistance = int.MaxValue - 2;
-        List<string> wordsToExplore = words.Where(x => x.Value + 2 <= minDistance).Select(x => x.Key).ToList();
-        while (wordsToExplore.Count > 0)
+        int[,] dpTable = new int[word1.Length + 1,word2.Length + 1];
+        for (int i = 0; i < word1.Length + 1; i++)
         {
-            foreach (string word in wordsToExplore)
-            {
-                minDistance = Math.Min(minDistance, Explore(words, word, word2, minDistance));
-                words[word] = minDistance;
-            }
-
-            wordsToExplore = words.Where(x => x.Value + 2 <= minDistance).Select(x => x.Key).ToList();
+            dpTable[i,0] = i;
+        }
+        for (int j = 0; j < word2.Length + 1; j++)
+        {
+            dpTable[0, j] = j;
         }
 
-        return minDistance;
-    }
-
-    private int Explore(Dictionary<string, int> words, string word, string target, int minDistance)
-    {
-        int currentDistance = words[word];
-        string newWord;
-        int potentiallyNewDistance;
-        foreach (char c in target)
+        for (int i = 1; i < word1.Length + 1; i++)
         {
-            for (int i = 0; i < word.Length; i++)
+            for (int j = 1; j < word2.Length + 1; j++)
             {
-                // modify
-                char[] array = word.ToCharArray();
-                array[i] = c;
-                newWord = new string(array);
-                potentiallyNewDistance = CheckForTarget(words, newWord, target, minDistance, currentDistance);
-                if (potentiallyNewDistance < minDistance)
+                if (word1[i - 1] == word2[j - 1])
                 {
-                    return potentiallyNewDistance;
+                    dpTable[i, j] = dpTable[i - 1, j - 1];
                 }
-
-                // insert
-                newWord = word.Insert(i, c.ToString());
-                potentiallyNewDistance = CheckForTarget(words, newWord, target, minDistance, currentDistance);
-                if (potentiallyNewDistance < minDistance)
+                else
                 {
-                    return potentiallyNewDistance;
+                    int minValue = Math.Min(dpTable[i - 1, j], dpTable[i - 1, j - 1]);
+                    minValue = Math.Min(minValue, dpTable[i, j - 1]);
+                    dpTable[i, j] = minValue + 1;
                 }
             }
-
-            // insert at end
-            newWord = word.Insert(word.Length, c.ToString());
-            potentiallyNewDistance = CheckForTarget(words, newWord, target, minDistance, currentDistance);
-            if (potentiallyNewDistance < minDistance)
-            {
-                return potentiallyNewDistance;
-            }
         }
 
-        for (int i = 0; i < word.Count(); i++)
-        {
-            // delete
-            newWord = word.Remove(i, 1);
-            potentiallyNewDistance = CheckForTarget(words, newWord, target, minDistance, currentDistance);
-            if (potentiallyNewDistance < minDistance)
-            {
-                return potentiallyNewDistance;
-            }
-        }
-
-
-        Console.WriteLine(words.Count);
-        return minDistance;
-    }
-
-    private int CheckForTarget(Dictionary<string, int> words, string newWord, string target, int minDistance, int currentDistance)
-    {
-        AllTimeMaxDistance = Math.Max(AllTimeMaxDistance, currentDistance + 1);
-        if (newWord == target)
-        {
-            return currentDistance + 1;
-        }
-        else
-        {
-            words.TryAdd(newWord, currentDistance + 1);
-        }
-
-        return minDistance;
+        return dpTable[word1.Length,word2.Length];
     }
 }
