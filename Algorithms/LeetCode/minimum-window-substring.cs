@@ -19,10 +19,15 @@ public class minimum_window_substring
 		// initilize pointers
 		int left = 0;
 		int right = 0;
-		while (requirements[s[right]] == 0)
+		while (right < s.Length && requirements[s[right]] == 0)
 		{
 			left++;
 			right++;
+		}
+
+		if (right == s.Length)
+		{
+			return string.Empty;
 		}
 
 		counts[s[right]]++;
