@@ -6,7 +6,7 @@ public class minimum_window_substring
 	{
 		int minRight = int.MaxValue;
 		int minLeft = 0;
-		bool requirementsMet = false;
+		int requirementsMet = 0;
 
 		// initialize requirements array
 		int[] requirements = new int[123]; // can optimize space by using length 58 and offsetting by 65
@@ -39,6 +39,11 @@ public class minimum_window_substring
 			while (right < s.Length && s[right] != s[left])
 			{
 				counts[s[right]]++;
+				if (counts[s[right]] < requirements[s[right]])
+				{
+					requirementsMet++;
+				}
+
 				right++;
 			}
 
@@ -55,8 +60,7 @@ public class minimum_window_substring
 						{
 							counts[s[left]]--;
 							left = tempLeft;
-							requirementsMet = requirementsMet || AllRequirementsMet(requirements, counts);
-							if (requirementsMet && (right - left < minRight - minLeft))
+							if (requirementsMet == t.Length && (right - left < minRight - minLeft))
 							{
 								minRight = right;
 								minLeft = left;
@@ -75,7 +79,7 @@ public class minimum_window_substring
 			}
 		}
 
-		if (requirementsMet)
+		if (requirementsMet == t.Length)
 		{
 			return s.Substring(minLeft, minRight - minLeft + 1);
 		}
@@ -83,18 +87,5 @@ public class minimum_window_substring
 		{
 			return string.Empty;
 		}
-	}
-
-	private bool AllRequirementsMet(int[] requirements, int[] counts)
-	{
-		for (int i = 0; i < requirements.Length; i++)
-		{
-			if (counts[i] < requirements[i])
-			{
-				return false;
-			}
-		}
-
-		return true;
 	}
 }
