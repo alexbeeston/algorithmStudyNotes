@@ -9,7 +9,6 @@ public class multiply_strings
 {
 	public string Multiply(string num1, string num2)
 	{
-
-
+		return "";
 	}
 }
