@@ -19,7 +19,7 @@ public class minimum_window_substring
 		// initilize pointers
 		int left = 0;
 		int right = 0;
-		while (requirements[s[right]] != 0)
+		while (requirements[s[right]] == 0)
 		{
 			left++;
 			right++;
@@ -40,13 +40,13 @@ public class minimum_window_substring
 			if (right < s.Length)
 			{
 				counts[s[right]]++;
-				int tempLeft = left;
+				int tempLeft = left + 1;
 				bool keep = true;
 				while (tempLeft <= right && keep)
 				{
 					if (requirements[s[tempLeft]] > 0)
 					{
-						if (counts[s[tempLeft]] - 1 >= requirements[s[tempLeft]])
+						if (counts[s[left]] - 1 >= requirements[s[left]])
 						{
 							counts[s[left]]--;
 							left = tempLeft;
