@@ -42,13 +42,13 @@ public class minimum_window_substring
 				counts[s[right]]++;
 				int tempLeft = left;
 				bool keep = true;
-				while (tempLeft < right && keep)
+				while (tempLeft <= right && keep)
 				{
-					if (requirements[s[left]] > 0)
+					if (requirements[s[tempLeft]] > 0)
 					{
 						if (counts[s[tempLeft]] - 1 >= requirements[s[tempLeft]])
 						{
-							counts[s[tempLeft]]--;
+							counts[s[left]]--;
 							left = tempLeft;
 							requirementsMet = requirementsMet || AllRequirementsMet(requirements, counts);
 							if (requirementsMet && (right - left < minRight - minLeft))
