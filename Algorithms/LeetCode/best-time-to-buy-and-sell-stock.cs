@@ -10,16 +10,23 @@ public class best_time_to_buy_and_sell_stock
 {
 	public int MaxProfit(int[] prices)
 	{
+		int left = 0;
+		int right = 0;
 		int maxProfit = 0;
-		for (int i = 0; i < prices.Length - 1; i++)
+		for (int i = 0; i < prices.Length; i++)
 		{
-			for (int j = i + 1; j < prices.Length; j++)
+			if (prices[i] > prices[right])
 			{
-				maxProfit = Math.Max(maxProfit, prices[j] - prices[i]);
-
+				right = i;
+			}
+			else if (prices[i] < prices[left])
+			{
+				maxProfit = Math.Max(maxProfit, prices[right] - prices[left]);
+				left = i;
+				right = i;
 			}
 		}
 
-		return maxProfit;
+		return Math.Max(maxProfit, prices[right] - prices[left]);
 	}
 }
