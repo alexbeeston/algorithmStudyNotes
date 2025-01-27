@@ -11,29 +11,39 @@ public class distinct_subsequences
 {
     public int NumDistinct(string s, string t)
     {
-        int[,] dpTable = new int[t.Length, s.Length];
+        int[] dpTable = new int[s.Length];
         int total = 0;
-        for (int T = 0; T < t.Length; T++)
+        for (int i = 0; i < s.Length; i++)
         {
-            total = T == 0 ? 1 : 0;
+            if (s[i] == t[0])
+            {
+                dpTable[i] = 1;
+            }
+        }
+
+        for (int T = 1; T < t.Length; T++)
+        {
+            total = 0;
             for (int S = 0; S < s.Length; S++)
             {
+                int current = dpTable[S];
                 if (s[S] == t[T])
                 {
-                    dpTable[T, S] = total;
+                    dpTable[S] = total;
+                }
+                else
+                {
+                    dpTable[S] = 0;
                 }
 
-                if (T > 0)
-                {
-                    total += dpTable[T - 1, S];
-                }
+                total += current;
             }
         }
 
         total = 0;
         for (int i = 0; i < s.Length; i++)
         {
-            total += dpTable[t.Length - 1, i];
+            total += dpTable[s.Length - 1];
         }
 
         return total;
