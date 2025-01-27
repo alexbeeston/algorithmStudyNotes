@@ -10,32 +10,29 @@ namespace Algorithms.LeetCode;
 
 public class unique_binary_search_trees
 {
-    public int NumTrees(int n)
+    public int NumTrees_Recursive(int n)
     {
-        int combinations = 0;
-        Thing(1, n, ref combinations);
-        return combinations;
-    }
-
-    private void Thing(int current, int max, ref int numCombinations)
-    {
-        if (current == max)
+        if (n == 0 || n == 1)
         {
-            numCombinations++;
-            return;
+            return 1;
         }
-
-        // add all remaining nodes to the left, then recurse on it
-        Thing(current + 1, max, ref numCombinations);
-
-        // add all remaining nodes to the right, then recurse on it
-        Thing(current + 1, max, ref numCombinations);
-
-        // add left and right, then recurse on both
-        if (current + 1 < max)
+        else if (n == 2)
         {
-            Thing(current + 2, max, ref numCombinations);
-            Thing(current + 2, max, ref numCombinations);
+            return 2;
+        }
+        else
+        {
+            int combinations = 0;
+            int topLimit = n - 1;
+            for (int i = 0; i <= (topLimit / 2); i++)
+            {
+                int left = NumTrees_Recursive(i);
+                int right = NumTrees_Recursive(topLimit - i);
+                int multiplier = topLimit % 2 == 0 && i == topLimit / 2 ? 1 : 2;
+                combinations += left * right * multiplier;
+            }
+
+            return combinations;
         }
     }
 }
