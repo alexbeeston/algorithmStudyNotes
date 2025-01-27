@@ -11,57 +11,29 @@ public class distinct_subsequences
 {
     public int NumDistinct(string s, string t)
     {
-        int[] dp = new int[s.Length];
-        int total;
-        int letterRequiredQuantity = 1;
+        int[,] dpTable = new int[t.Length, s.Length];
+        int total = 0;
         for (int T = 0; T < t.Length; T++)
         {
-            if (T > 0 && t[T] == t[T - 1])
-            {
-                letterRequiredQuantity++;
-            }
-            else
-            {
-                letterRequiredQuantity = 1;
-            }
-
             total = T == 0 ? 1 : 0;
-            int cummulativeLetterOccurances = 0;
             for (int S = 0; S < s.Length; S++)
             {
                 if (s[S] == t[T])
                 {
-                    if (letterRequiredQuantity > 1)
-                    {
-                        cummulativeLetterOccurances++;
-                        if (cummulativeLetterOccurances >= letterRequiredQuantity)
-                        {
-                            total += dp[S];
-                        }
-
-                        dp[S] = total;
-                    }
-                    else
-                    {
-                        dp[S] = total;
-                    }
+                    dpTable[T, S] = total;
                 }
-                else
-                {
-                    if (T > 0 && s[S] == t[T - 1])
-                    {
-                        total += dp[S];
-                    }
 
-                    dp[S] = 0;
+                if (T > 0)
+                {
+                    total += dpTable[T - 1, S];
                 }
             }
         }
 
         total = 0;
-        for (int i = 0; i < dp.Length; i++)
+        for (int i = 0; i < s.Length; i++)
         {
-            total += dp[i];
+            total += dpTable[t.Length - 1, i];
         }
 
         return total;
