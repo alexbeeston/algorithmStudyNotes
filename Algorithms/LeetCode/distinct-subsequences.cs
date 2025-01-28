@@ -13,37 +13,29 @@ public class distinct_subsequences
     {
         int[] dpTable = new int[s.Length];
         int total = 0;
-        for (int i = 0; i < s.Length; i++)
+        for (int T = 0; T < t.Length; T++)
         {
-            if (s[i] == t[0])
-            {
-                dpTable[i] = 1;
-            }
-        }
-
-        for (int T = 1; T < t.Length; T++)
-        {
-            total = 0;
+            total = T == 0 ? 1 : 0;
             for (int S = 0; S < s.Length; S++)
             {
-                int current = dpTable[S];
                 if (s[S] == t[T])
                 {
+                    int temp = dpTable[S];
                     dpTable[S] = total;
+                    total += temp;
                 }
                 else
                 {
+                    total += dpTable[S];
                     dpTable[S] = 0;
                 }
-
-                total += current;
             }
         }
 
         total = 0;
         for (int i = 0; i < s.Length; i++)
         {
-            total += dpTable[s.Length - 1];
+            total += dpTable[i];
         }
 
         return total;
