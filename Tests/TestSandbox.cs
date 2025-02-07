@@ -10,7 +10,7 @@ public class TestSandbox2
     [TestMethod]
     public void Sandbox()
     {
-        distinct_subsequences s = new();
-        int d = s.NumDistinct("rabbbit", "rabbit");
+        maximum_subarray s = new();
+        int a = s.MaxSubArrayDivideAndConquer([-1, 1000, 3, 2, -2, 1, -100, 4, 4]);
     }
 }

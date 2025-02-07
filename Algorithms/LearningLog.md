@@ -1,1 +1,2 @@
 ﻿- To return an IList<IList<T>>, instantiate a List<IList<T>>, then add to that.
+- Don't try to give them anymore than they ask for! For example, if you're looking for max sub array, but they don't ask for left and right pointers, you may not need to track left/right indices.
