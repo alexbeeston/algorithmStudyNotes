@@ -8,12 +8,39 @@ using System.Threading.Tasks;
 namespace Algorithms.LeetCode;
 
 // #62
-public class unique_paths
+public static class unique_paths
 {
-    public int UniquePathsDynamic(int m, int n)
+    // Method 1: Pure recursion, causes recomputations.
+    public static int Recursive(int m, int n)
+    {
+        int total = 0;
+        RecursiveHelper(m, n, 1, 1, ref total);
+        return total;
+    }
+
+    private static void RecursiveHelper(int m, int n, int i, int j, ref int total)
+    {
+        if (i == m && j == n)
+        {
+            total++;
+        }
+
+        if (i < m)
+        {
+            RecursiveHelper(m, n, i + 1, j, ref total);
+        }
+
+        if (j < n)
+        {
+            RecursiveHelper(m, n, i, j + 1, ref total);
+        }
+    }
+
+    // Method 2: Dynamic: better, but for some reason using recursion for the DP Table is faster than doing an m x n dpTable
+    public static int Dynamic(int m, int n)
     {
         int[,] dpTable = new int[m, n];
-        
+
         for (int i = 0; i < m; i++)
         {
             dpTable[i, 0] = 1;
@@ -34,28 +61,30 @@ public class unique_paths
         return dpTable[m - 1, n - 1];
     }
 
-    public int UniquePathsRecursive(int m, int n)
+    // Method 3: Recursive Dynamic: Not sure why, but does better.
+    public static int RecursiveDynamic(int m, int n)
     {
-        int total = 0;
-        Step(m, n, 1, 1, ref total);
-        return total;
+        int[] dpTable = new int[m];
+        for (int i = 0; i < m; i++)
+        {
+            dpTable[i] = 1;
+        }
+
+        return RecursiveDynamicHelper(dpTable, m, n, 1);
     }
 
-    public void Step(int m, int n, int i, int j, ref int total)
+    private static int RecursiveDynamicHelper(int[] dpTable, int m, int n, int j)
     {
-        if (i == m && j == n)
+        if (j == n)
         {
-            total++;
+            return dpTable[m - 1];
         }
 
-        if (i < m)
+        for (int i = 1; i < m; i++)
         {
-            Step(m, n, i + 1, j, ref total);
+            dpTable[i] += dpTable[i - 1];
         }
 
-        if (j < n)
-        {
-            Step(m, n, i, j + 1, ref total);
-        }
+        return RecursiveDynamicHelper(dpTable, m, n, j + 1);
     }
 }

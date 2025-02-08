@@ -10,7 +10,5 @@ public class TestSandbox2
     [TestMethod]
     public void Sandbox()
     {
-        unique_paths s = new();
-        int a = s.UniquePathsRecursive(3, 2);
     }
 }
