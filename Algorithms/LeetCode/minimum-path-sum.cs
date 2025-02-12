@@ -24,5 +24,7 @@ internal class minimum_path_sum
                 }
             }
         }
+
+        return grid[grid.Length - 1][grid[0].Length - 1];
     }
 }
