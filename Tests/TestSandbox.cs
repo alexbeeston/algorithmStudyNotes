@@ -10,5 +10,8 @@ public class TestSandbox2
     [TestMethod]
     public void Sandbox()
     {
+        jump_game_ii s = new();
+        s.Jump([7, 0, 9, 6, 9, 6, 1, 7, 9, 0, 1, 2, 9, 0, 3]);
+        s.Jump([0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 2, 0, 3, 0]);
     }
 }
