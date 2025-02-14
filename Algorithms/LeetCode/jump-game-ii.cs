@@ -7,18 +7,22 @@ public class jump_game_ii
     // #45
     public int Jump(int[] nums)
     {
-        int[] distances = new int[nums.Length];
-        int maxDistance = 0;
-        for (int i = 0; i < nums.Length; i++)
-        {
-            if (i + nums[i] > maxDistance)
-            {
-                maxDistance = i + nums[i];
-                distances[i + nums[i]] = distances[i] + 1;
-            }
+        return Helper(nums, 0, 0, 0);
+    }
 
+    public int Helper(int[] nums, int start, int end, int numJumps)
+    {
+        if (end >= nums.Length - 1)
+        {
+            return numJumps;
         }
 
-        return 
+        int maxIndex = end;
+        for (int i = start; i <= end; i++)
+        {
+            maxIndex = Math.Max(i + nums[i], maxIndex);
+        }
+
+        return Helper(nums, end + 1, maxIndex, numJumps + 1);
     }
 }
