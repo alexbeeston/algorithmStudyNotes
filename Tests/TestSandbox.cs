@@ -10,8 +10,8 @@ public class TestSandbox2
     [TestMethod]
     public void Sandbox()
     {
-        decode_ways s = new();
-        s.NumDecodings("01323432423423424");
-        Assert.IsTrue(true);
-    }   
+        maximal_rectangle s = new();
+        s.MaximalRectangle([['1', '0', '1', '0', '0'], ['1', '0', '1', '1', '1'], ['1', '1', '1', '1', '1'], ['1', '0', '0', '1', '0']]);
+        //int dog = s.MaximalRectangle([['1']]);
+    }
 }
