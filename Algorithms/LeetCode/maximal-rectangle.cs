@@ -23,6 +23,10 @@ public class maximal_rectangle
             }
         }
 
+        // If at this point, I have a row in atOrAbove that is [3, 3, 1, 3], how can I produce the result 6 in linear time?
+        // how about if I have [1, 9, 9], how would I get to 18 in linear time? or [1, 9, 7], how would I get to 14? How
+        // do I know left and right indices are?
+
         int maxArea = 0;
         for (int i = 0; i < atOrAbove.GetLength(0); i++)
         {
