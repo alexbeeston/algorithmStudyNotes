@@ -11,57 +11,35 @@ public class interleaving_string
 {
     public bool IsInterleave(string s1, string s2, string s3)
     {
-        return Helper(s1, s2, s3, 0, 0, 0);
-    }
-
-    public bool Helper(string s1, string s2, string target, int i, int j, int k)
-    {
-        // base cases
-        if (k == target.Length)
+        if (s1.Length == 0 && s2.Length == 0 && s3.Length == )
         {
-            return i == s1.Length && j == s2.Length;
+            return true;
         }
-        else if (i == s1.Length)
-        {
-            if (j < s2.Length && target[k] == s2[j])
-            {
-                return Helper(s1, s2, target, i, j + 1, k + 1);
-            }
-            else
-            {
-                return false;
-            }
-        }
-        else if (j == s2.Length)
-        {
-            if (i < s1.Length && target[k] == s1[i])
-            {
-                return Helper(s1, s2, target, i + 1, j, k + 1);
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        // recursive cases
-        else if (target[k] == s1[i] && target[k] == s2[j])
-        {
-            return
-                Helper(s1, s2, target, i + 1, j, k + 1) ||
-                Helper(s1, s2, target, i, j + 1, k + 1);
-        }
-        else if (target[k] == s1[i])
-        {
-            return Helper(s1, s2, target, i + 1, j, k + 1);
-        }
-        else if (target[k] == s2[j])
-        {
-            return Helper(s1, s2, target, i, j + 1, k + 1);
-        }
-        else
+        else if (s1.Length + s2.Length != s2.Length)
         {
             return false;
         }
+
+        bool[,] dpTable = new bool[s1.Length + 1, s2.Length + 1];
+        for (int i = 0; i < s1.Length + 1; i++)
+        {
+            for (int j = 0; j < s2.Length; j++)
+            {
+                if (i == 0 && j == 0)
+                {
+                    // out of range 
+                    dpTable[0, 1] = s1[0] == s3[0];
+                    dpTable[1, 0] = s2[0] == s3[0];
+                }
+                else if (dpTable[i,j])
+                {
+                    char charWeNeed = s3[i + j - 1];
+                    dpTable[i, j + 1] = s1[i + 1] == charWeNeed;
+                    dpTable[i + 1, j] = s2[j + 1] == charWeNeed;
+                }
+            }
+        }
+
+        return dpTable[s1.Length, s2.Length];
     }
 }
