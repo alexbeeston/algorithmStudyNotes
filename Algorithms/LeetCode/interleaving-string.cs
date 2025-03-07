@@ -34,8 +34,8 @@ public class interleaving_string
                 else if (dpTable[i,j])
                 {
                     char charWeNeed = s3[i + j - 1];
-                    dpTable[i, j + 1] = s1[i + 1] == charWeNeed;
-                    dpTable[i + 1, j] = s2[j + 1] == charWeNeed;
+                    dpTable[i, j + 1] = s1[i - 1] == charWeNeed;
+                    dpTable[i + 1, j] = s2[j - 1] == charWeNeed;
                 }
             }
         }
