@@ -38,6 +38,10 @@ public class interleaving_string
 					{
 						dpTable[i, j + 1] = true;
 					}
+					else if (i == 0)
+					{
+						break;
+					}
 				}
 			}
 		}
