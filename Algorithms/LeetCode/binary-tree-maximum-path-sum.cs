@@ -24,22 +24,44 @@ public class binary_tree_maximum_path_sum
         return GlobalMax;
     }
 
-    public int GetMaxPathAvailableToPassThroughParent(TreeNode node)
+    public int? GetMaxPathAvailableToPassThroughParent(TreeNode node)
     {
         if (node == null)
         {
-            return 0;
+            return null;
         }
 
-        int leftMax = GetMaxPathAvailableToPassThroughParent(node.left);
-        int rightMax = GetMaxPathAvailableToPassThroughParent(node.right);
-        GlobalMax = Math.Max(GlobalMax, leftMax);
-        GlobalMax = Math.Max(GlobalMax, rightMax);
-        GlobalMax = Math.Max(GlobalMax, node.val + leftMax);
-        GlobalMax = Math.Max(GlobalMax, node.val + rightMax);
-        GlobalMax = Math.Max(GlobalMax, leftMax + node.val + rightMax);
+        int? leftMax = GetMaxPathAvailableToPassThroughParent(node.left);
+        int? rightMax = GetMaxPathAvailableToPassThroughParent(node.right);
 
-        int maxPathThroughNode = Math.Max(node.val, node.val + leftMax);
-        return Math.Max(maxPathThroughNode, node.val + rightMax);
+        if (leftMax != null)
+        {
+            GlobalMax = Math.Max(GlobalMax, leftMax.Value);
+            GlobalMax = Math.Max(GlobalMax, node.val + leftMax.Value);
+        }
+
+        if (rightMax != null)
+        {
+            GlobalMax = Math.Max(GlobalMax, rightMax.Value);
+            GlobalMax = Math.Max(GlobalMax, node.val + rightMax.Value);
+        }
+
+        if (leftMax != null && rightMax != null)
+        {
+            GlobalMax = Math.Max(GlobalMax, leftMax.Value + node.val + rightMax.Value);
+        }
+
+        int maxPathThroughNode = node.val;
+        if (leftMax != null)
+        {
+            maxPathThroughNode = Math.Max(maxPathThroughNode, leftMax.Value + node.val);
+        }
+
+        if (rightMax != null)
+        {
+            maxPathThroughNode = Math.Max(maxPathThroughNode, rightMax.Value + node.val);
+        }
+
+        return maxPathThroughNode;
     }
 }
