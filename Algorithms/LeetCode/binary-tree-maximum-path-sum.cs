@@ -34,15 +34,14 @@ public class binary_tree_maximum_path_sum
         int? leftMax = GetMaxPathAvailableToPassThroughParent(node.left);
         int? rightMax = GetMaxPathAvailableToPassThroughParent(node.right);
 
+        GlobalMax = Math.Max(GlobalMax, node.val);
         if (leftMax != null)
         {
-            GlobalMax = Math.Max(GlobalMax, leftMax.Value);
             GlobalMax = Math.Max(GlobalMax, node.val + leftMax.Value);
         }
 
         if (rightMax != null)
         {
-            GlobalMax = Math.Max(GlobalMax, rightMax.Value);
             GlobalMax = Math.Max(GlobalMax, node.val + rightMax.Value);
         }
 
