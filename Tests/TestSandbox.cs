@@ -10,7 +10,9 @@ public class TestSandbox2
     [TestMethod]
     public void Sandbox()
     {
-        interleaving_string s = new();
-        s.IsInterleave("aabcc", "dbbca", "aadbbcbcac");
+        integer_to_roman s = new();
+        var dog = s.IntToRoman(3000);
+        var dog2 = s.IntToRoman(70);
+        var dog3 = s.IntToRoman(800);
     }
 }
