@@ -1,13 +1,17 @@
-﻿namespace Algorithms.LeetCode;
+﻿using System.Reflection.Metadata.Ecma335;
+
+namespace Algorithms.LeetCode;
 
 public class median_of_two_sorted_arrays
 {
     public double FindMedianSortedArrays(int[] nums1, int[] nums2)
     {
-        return GetMedian(nums1, 0, nums1.Length - 1, nums2, 0, nums2.Length - 1);
+        // assume for now sum of lengths is odd
+        int rank = nums1.Length + nums2.Length / 2;
+        return GetMedian(nums1, 0, nums1.Length - 1, nums2, 0, nums2.Length - 1, rank);
     }
 
-    private double GetMedian(int[] array1, int array1_left, int array1_right, int[] array2, int array2_left, int array2_right)
+    private double GetMedian(int[] array1, int array1_left, int array1_right, int[] array2, int array2_left, int array2_right, int rank)
     {
         if (array1.Length == 0 && array2.Length == 0)
         {
@@ -15,7 +19,8 @@ public class median_of_two_sorted_arrays
         }
         else if (array1.Length == 0)
         {
-            return GetMedian(array2);
+            if (array2)
+            return array2[array2]
         }
         else if (array2.Length == 0)
         {
@@ -23,29 +28,38 @@ public class median_of_two_sorted_arrays
         }
         else
         {
+            // what if other array is length 1?
+            int arr1Partition = array1.Length / 2;
+
+
+
+
             return 10;
         }
     }
 
-    private double GetMedian(int[] arr)
+    /// <summary>
+    /// Returns the median and the index at which it and all elements to its left are guaranteed to be less than or equal to the median.
+    /// </summary>
+    private (double, int) GetMedian(int[] arr, int left, int right)
     {
-        if (arr.Length == 0)
+        int diff = right - left;
+        if (diff < 0)
         {
             throw new Exception("Can't get median of an empty array");
         }
-        else if (arr.Length == 1)
+        else if (diff == 0)
         {
-            return arr[0];
+            return (arr[left], left);
         }
-        else if (arr.Length % 2 == 0)
+        else if (diff % 2 == 0) // odd number of elements
         {
-            int mid = arr.Length / 2;
-            return (arr[mid] + (double)arr[mid - 1]) / 2;
+            return (arr[diff], diff);
         }
-        else
+        else // even number of elements
         {
-            int mid = arr.Length / 2;
-            return arr[mid];
+            double median = ((double)arr[diff] + arr[diff + 1]) / 2;
+            return (median, diff);
         }
     }
 }
