@@ -6,3 +6,4 @@
 - Can't optmize but have a solution? Start coding anyways, get points on the board, and then in coding a solution, perhaps I'll see an optimization.
 - `int[,] multidimensionalArray = new int[3, 4]` Use arr.GetLength(0) to get length of first dimension.
 - `int[,]` is a multidimensional array, while `int[][]` is a jagged array.
+- Finding the index of the mid of an array? Do integer division by 2, then if length is odd, result is index of mid, else result is the right-most middle of the result.
