@@ -10,9 +10,7 @@ public class TestSandbox2
     [TestMethod]
     public void Sandbox()
     {
-        integer_to_roman s = new();
-        var dog = s.IntToRoman(3310);
-        var dog2 = s.IntToRoman(70);
-        var dog3 = s.IntToRoman(800);
+        median_of_two_sorted_arrays s = new();
+        var r = s.FindMedianSortedArrays([1], []);
     }
 }

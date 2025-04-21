@@ -11,30 +11,36 @@ public class median_of_two_sorted_arrays
         return GetMedian(nums1, 0, nums1.Length - 1, nums2, 0, nums2.Length - 1, rank);
     }
 
-    private double GetMedian(int[] array1, int array1_left, int array1_right, int[] array2, int array2_left, int array2_right, int rank)
+    private double GetMedian(int[] arr1, int arr1L, int arr1R, int[] arr2, int arr2L, int arr2R, int rank)
     {
-        if (array1.Length == 0 && array2.Length == 0)
+        if (arr1.Length == 0 && arr2.Length == 0)
         {
             throw new Exception("Both arrays are empty.");
         }
-        else if (array1.Length == 0)
+        else if (arr1.Length == 0)
         {
-            if (array2)
-            return array2[array2]
+            // get median or get rank?
         }
-        else if (array2.Length == 0)
+        else if (arr2.Length == 0)
         {
-            return GetMedian(array1);
+            // get median or get rank?
         }
         else
         {
-            // what if other array is length 1?
-            int arr1Partition = array1.Length / 2;
+            (double arr1Median, int arr1Partition) = GetMedian(arr1, arr1L, arr1R);
+            (double arr2Median, int arr2Partition) = GetMedian(arr2, arr2L, arr2R);
+            int numElementsInArr1LeftPartition = arr1Partition - arr1L + 1;
+            int numElementsInArr2LeftPartition = arr2Partition - arr2L + 1;
 
+            if (arr1Median >= arr2Median)
+            {
+                return GetMedian(arr1, )
 
+            }
+            else
+            {
 
-
-            return 10;
+            }
         }
     }
 
