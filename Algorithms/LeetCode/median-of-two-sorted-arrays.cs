@@ -13,20 +13,11 @@ public class median_of_two_sorted_arrays
         }
         else
         {
-            return RecurseOnSmallerArray(nums1, 0, nums1.Length - 1, nums2, 0, nums2.Length, midIndex);
+            return RecurseOnSmallerArray(nums1, 0, nums1.Length - 1, nums2, 0, nums2.Length - 1, midIndex + 1);
         }
     }
 
     private int RecurseOnSmallerArray(int[] numsA, int aLeft, int aRight, int[] numsB, int bLeft, int bRight, int k)
-    {
-        int aMid = (aRight - aLeft) / 2;
-        int bMid = (bRight - bLeft) / 2;
-        return numsA[aMid] <= numsB[bMid] ?
-                GetKthSmallestItem(numsA, aLeft, aRight, numsB, bLeft, bRight, k) :
-                GetKthSmallestItem(numsB, bLeft, bRight, numsA, aLeft, aRight, k);
-    }
-
-    private int GetKthSmallestItem(int[] numsA, int aLeft, int aRight, int[] numsB, int bLeft, int bRight, int k)
     {
         int sizeA = Math.Max(0, aRight - aLeft + 1);
         int sizeB = Math.Max(0, bRight - bLeft + 1);
@@ -42,23 +33,33 @@ public class median_of_two_sorted_arrays
         {
             return numsA[aLeft + k - 1];
         }
+
+        int aMid = sizeA / 2;
+        int bMid = sizeB / 2;
+        bool aIsLTE = numsA[aMid] <= numsB[bMid];
+        return aIsLTE ?
+                GetKthSmallestItem(numsA, aLeft, aRight, numsB, bLeft, bRight, k) :
+                GetKthSmallestItem(numsB, bLeft, bRight, numsA, aLeft, aRight, k);
+    }
+
+    private int GetKthSmallestItem(int[] numsA, int aLeft, int aRight, int[] numsB, int bLeft, int bRight, int k)
+    {
+        int sizeA = aRight - aLeft + 1;
+        int sizeB = bRight - bLeft + 1;
+        int totalItems = sizeA + sizeB;
+        int medianIndex = totalItems / 2;
+        if (k < medianIndex)
+        {
+            // remove out bRight
+            bRight = bLeft + (sizeB / 2);
+            return RecurseOnSmallerArray(numsA, aLeft, aRight, numsB, bLeft, bRight, k);
+        }
         else
         {
-            int totalItems = sizeA + sizeB;
-            int medianIndex = totalItems / 2;
-            if (k < medianIndex)
-            {
-                // remove out bRight
-                bRight = bLeft + (sizeB / 2);
-                return RecurseOnSmallerArray(numsA, aLeft, aRight, numsB, bLeft, bRight, k);
-            }
-            else
-            {
-                // remove aLeft
-                int amid = aLeft + (sizeA / 2);
-                k -= (amid - aLeft);
-                return RecurseOnSmallerArray(numsA, amid, aRight, numsB, bLeft, bRight, k);
-            }
+            // remove aLeft
+            int amid = aLeft + (sizeA / 2);
+            k -= (amid - aLeft);
+            return RecurseOnSmallerArray(numsA, amid, aRight, numsB, bLeft, bRight, k);
         }
     }
 
