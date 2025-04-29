@@ -13,7 +13,8 @@ public class TestSandbox2
         median_of_two_sorted_arrays s = new();
         List<TestCase> testCases = new List<TestCase>();
         // passing
-        testCases.Add(new TestCase([], [1, 2, 3], 2)); // 1
+        //testCases.Add(new TestCase([], [1, 2, 3], 2)); // 1
+        testCases.Add(new TestCase([], [1, 2, 3, 4], 2.5)); // 1
 
 
         //testCases.Add(new TestCase([0, 2, 4], [1, 3, 4, 5], 3));

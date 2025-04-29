@@ -4,16 +4,19 @@ public class median_of_two_sorted_arrays
 {
     public double FindMedianSortedArrays(int[] nums1, int[] nums2)
     {
-        int midIndex = (nums1.Length + nums2.Length) / 2;
         if (nums1.Length + nums2.Length % 2 == 0)
         {
-            int num1 = RecurseOnSmallerArray(nums1, 0, nums1.Length - 1, nums2, 0, nums2.Length, midIndex);
-            int num2 = RecurseOnSmallerArray(nums1, 0, nums1.Length - 1, nums2, 0, nums2.Length, midIndex - 1);
+            // checked
+            int k1 = (nums1.Length + nums2.Length) / 2;
+            int num1 = RecurseOnSmallerArray(nums1, 0, nums1.Length - 1, nums2, 0, nums2.Length, k1);
+            int num2 = RecurseOnSmallerArray(nums1, 0, nums1.Length - 1, nums2, 0, nums2.Length, k1 + 1);
             return (double)(num1 + num2) / 2;
         }
         else
         {
-            return RecurseOnSmallerArray(nums1, 0, nums1.Length - 1, nums2, 0, nums2.Length - 1, midIndex + 1);
+            // checked
+            int k = (nums1.Length + nums2.Length) / 2 + 1;
+            return RecurseOnSmallerArray(nums1, 0, nums1.Length - 1, nums2, 0, nums2.Length - 1, k);
         }
     }
 
