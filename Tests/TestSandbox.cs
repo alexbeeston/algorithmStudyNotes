@@ -18,7 +18,7 @@ public class TestSandbox2
         //testCases.Add(new TestCase([], [-10], -10)); // 3
         //testCases.Add(new TestCase([1, 3, 5], [2, 4, 6], 3.5)); // 4
         //testCases.Add(new TestCase([1, 3, 5], [2, 4, 6, 7], 4)); // 5
-        testCases.Add(new TestCase([2, 4, 6, 7], [2, 4, 6, 7], 4)); // 6
+        testCases.Add(new TestCase([2, 4, 6, 7], [2, 4, 6, 7], 99)); // 6
 
 
         //testCases.Add(new TestCase([0, 2, 4], [1, 3, 4, 5], 3));

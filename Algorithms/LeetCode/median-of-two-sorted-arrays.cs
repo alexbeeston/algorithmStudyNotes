@@ -40,10 +40,13 @@ public class median_of_two_sorted_arrays
         int aMid = sizeA / 2;
         int bMid = sizeB / 2;
         bool aIsLTE = numsA[aMid] <= numsB[bMid];
+        // if k - 1 == size / 2 (and size is odd), then kth smallest cannot be in bright
         return aIsLTE ?
                 GetKthSmallestItem(numsA, aLeft, aRight, numsB, bLeft, bRight, k) :
                 GetKthSmallestItem(numsB, bLeft, bRight, numsA, aLeft, aRight, k);
     }
+
+    // if include mid with either left or right halves, you'll always have at least half the element in total
 
     private int GetKthSmallestItem(int[] numsA, int aLeft, int aRight, int[] numsB, int bLeft, int bRight, int k)
     {
