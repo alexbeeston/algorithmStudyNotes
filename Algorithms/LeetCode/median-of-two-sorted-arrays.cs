@@ -28,6 +28,21 @@ public class median_of_two_sorted_arrays
         {
             throw new Exception($"K is too big. {GetDebugString(aLeft, aRight, bLeft, bRight, k)}");
         }
+        else if (sizeA == 1 && sizeB == 1)
+        {
+            if (k == 1)
+            {
+                return Math.Min(numsA[aLeft], numsB[aRight]);
+            }
+            else if (k == 2)
+            {
+                return Math.Max(numsA[aLeft], numsB[aRight]);
+            }
+            else
+            {
+                throw new Exception("Size is two but k is not 1 or 2");
+            }
+        }
         else if (sizeA == 0)
         {
             return numsB[bLeft + k - 1];
@@ -39,33 +54,38 @@ public class median_of_two_sorted_arrays
 
         int aMid = sizeA / 2;
         int bMid = sizeB / 2;
+        int totalItems = sizeA + sizeB;
         bool aIsLTE = numsA[aMid] <= numsB[bMid];
         // if k - 1 == size / 2 (and size is odd), then kth smallest cannot be in bright
         return aIsLTE ?
-                SelectKthSmallestAssumingAIsSmaller(numsA, aLeft, aRight, numsB, bLeft, bRight, k) :
-                SelectKthSmallestAssumingAIsSmaller(numsB, bLeft, bRight, numsA, aLeft, aRight, k);
+                SelectKthSmallestAssumingAIsSmaller(numsA, aLeft, aMid, aRight, numsB, bLeft, bMid, bRight, totalItems, k) :
+                SelectKthSmallestAssumingAIsSmaller(numsB, bLeft, bMid, bRight, numsA, aLeft, aMid, aRight, totalItems, k);
     }
 
     // if include mid with either left or right halves, you'll always have at least half the element in total
 
-    private int SelectKthSmallestAssumingAIsSmaller(int[] numsA, int aLeft, int aRight, int[] numsB, int bLeft, int bRight, int k)
+    private int SelectKthSmallestAssumingAIsSmaller(int[] numsA, int aLeft, int aMid, int aRight, int[] numsB, int bLeft, int bMid, int bRight, int totalItems, int k)
     {
-        int sizeA = aRight - aLeft + 1;
-        int sizeB = bRight - bLeft + 1;
-        int totalItems = sizeA + sizeB;
         int medianIndex = totalItems / 2;
-        if (k < medianIndex)
+        if (k <= medianIndex)
         {
             // remove out bRight
-            bRight = bLeft + (sizeB / 2);
-            return GetKthSmallestItem(numsA, aLeft, aRight, numsB, bLeft, bRight, k);
+            return GetKthSmallestItem(numsA, aLeft, aRight, numsB, bLeft, bMid, k);
         }
         else
         {
             // remove aLeft
-            int amid = aLeft + (sizeA / 2);
-            k -= (amid - aLeft);
-            return GetKthSmallestItem(numsA, amid, aRight, numsB, bLeft, bRight, k);
+            if (aLeft == aRight)
+            {
+                k--;
+                aRight--;
+            }
+            else
+            {
+                k -= aMid - aLeft;
+            }
+
+            return GetKthSmallestItem(numsA, aMid, aRight, numsB, bLeft, bRight, k);
         }
     }
 
