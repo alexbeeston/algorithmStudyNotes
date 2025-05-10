@@ -32,11 +32,11 @@ public class median_of_two_sorted_arrays
         {
             if (k == 1)
             {
-                return Math.Min(numsA[aLeft], numsB[aRight]);
+                return Math.Min(numsA[aLeft], numsB[bLeft]);
             }
             else if (k == 2)
             {
-                return Math.Max(numsA[aLeft], numsB[aRight]);
+                return Math.Max(numsA[aLeft], numsB[bLeft]);
             }
             else
             {
