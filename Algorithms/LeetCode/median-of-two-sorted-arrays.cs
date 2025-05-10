@@ -69,23 +69,44 @@ public class median_of_two_sorted_arrays
         int medianIndex = totalItems / 2;
         if (k <= medianIndex)
         {
-            // remove out bRight
-            return GetKthSmallestItem(numsA, aLeft, aRight, numsB, bLeft, bMid, k);
+            // prune bRight
+            int nextBRight;
+            if (bLeft == bRight)
+            {
+                nextBRight = bLeft - 1;
+            }
+            else if (bMid == bRight)
+            {
+                nextBRight = bMid - 1;
+            }
+            else
+            {
+                nextBRight = bMid;
+            }
+
+            return GetKthSmallestItem(numsA, aLeft, aRight, numsB, bLeft, nextBRight, k);
         }
         else
         {
-            // remove aLeft
+            // prune aLeft
+            int nextALeft;
             if (aLeft == aRight)
             {
                 k--;
-                aRight--;
+                nextALeft = aLeft + 1;
+            }
+            else if (aMid == aRight)
+            {
+                k--;
+                nextALeft = aRight;
             }
             else
             {
                 k -= aMid - aLeft;
+                nextALeft = aMid;
             }
 
-            return GetKthSmallestItem(numsA, aMid, aRight, numsB, bLeft, bRight, k);
+            return GetKthSmallestItem(numsA, nextALeft, aRight, numsB, bLeft, bRight, k);
         }
     }
 
