@@ -44,37 +44,29 @@ namespace Algorithms.LeetCode
             if (digits.Count == 0) return 0;
 
             // Step 4
-            int integer = 0;
+            double integer = 0;
             for (int powerOfTen = 0; powerOfTen < digits.Count; powerOfTen++)
             {
                 double absoluteValue = Math.Pow(10, powerOfTen) * digits[digits.Count - powerOfTen - 1];
                 if (isPositive)
                 {
-                    int maxAbsoluteValue = int.MaxValue - integer;
-                    if (absoluteValue >= maxAbsoluteValue)
+                    integer += absoluteValue;
+                    if (integer >= int.MaxValue)
                     {
                         return int.MaxValue;
-                    }
-                    else
-                    {
-                        integer += (int)absoluteValue;
                     }
                 }
                 else
                 {
-                    int maxAbsoluteValue = Math.Abs(int.MinValue - integer);
-                    if (absoluteValue >= maxAbsoluteValue)
+                    integer -= absoluteValue;
+                    if (integer <= int.MinValue)
                     {
                         return int.MinValue;
-                    }
-                    else
-                    {
-                        integer -= (int)absoluteValue;
                     }
                 }
             }
 
-            return integer;
+            return (int)integer;
         }
     }
 }

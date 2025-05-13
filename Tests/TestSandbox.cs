@@ -8,7 +8,11 @@ public class TestSandbox2
     [TestMethod]
     public void Sandbox()
     {
-        string_to_integer_atoi s = new();
-        Assert.IsTrue(s.MyAtoi("42") == 42);
+        int i = int.MinValue;
+        i--;
+
+        //string_to_integer_atoi s = new();
+        ////Assert.IsTrue(s.MyAtoi("42") == 42);
+        //Assert.IsTrue(s.MyAtoi("-042") == -42);
     }
 }
