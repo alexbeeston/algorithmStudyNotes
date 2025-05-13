@@ -28,21 +28,6 @@ public class median_of_two_sorted_arrays
         {
             throw new Exception($"K is too big. {GetDebugString(aLeft, aRight, bLeft, bRight, k)}");
         }
-        else if (sizeA == 1 && sizeB == 1)
-        {
-            if (k == 1)
-            {
-                return Math.Min(numsA[aLeft], numsB[bLeft]);
-            }
-            else if (k == 2)
-            {
-                return Math.Max(numsA[aLeft], numsB[bLeft]);
-            }
-            else
-            {
-                throw new Exception("Size is two but k is not 1 or 2");
-            }
-        }
         else if (sizeA == 0)
         {
             return numsB[bLeft + k - 1];
@@ -50,6 +35,28 @@ public class median_of_two_sorted_arrays
         else if (sizeB == 0)
         {
             return numsA[aLeft + k - 1];
+        }
+        else if (sizeA == 1)
+        {
+            if (numsA[0] >= numsB[k - 2])
+            {
+                return Math.Min(numsA[0], numsB[k - 1]);
+            }
+            else
+            {
+                return numsB[k - 1];
+            }
+        }
+        else if (sizeB == 1)
+        {
+            if (numsB[0] >= numsA[k - 2])
+            {
+                return Math.Min(numsB[0], numsA[k - 1]);
+            }
+            else
+            {
+                return numsA[k - 1];
+            }
         }
 
         int aMid = sizeA / 2;
@@ -66,8 +73,8 @@ public class median_of_two_sorted_arrays
 
     private int SelectKthSmallestAssumingAIsSmaller(int[] numsA, int aLeft, int aMid, int aRight, int[] numsB, int bLeft, int bMid, int bRight, int totalItems, int k)
     {
-        int medianIndex = totalItems / 2;
-        if (k <= medianIndex)
+        int medianItem = totalItems / 2;
+        if (k < medianItem)
         {
             // prune bRight
             int nextBRight;
