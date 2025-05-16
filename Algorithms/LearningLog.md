@@ -8,3 +8,4 @@
 - `int[,]` is a multidimensional array, while `int[][]` is a jagged array.
 - Finding the index of the mid of an array? Do integer division by 2, then if length is odd, result is index of mid, else result is the right-most middle of the result.
 - Sometimes n^2 is the the best runtime; don't optimize before you have a solution.
+- When using recursion, ask myself whether the recursive function makes any assumptions about the parameters; sometimes it does, and if so, that will affect how the recursive function is called, both from itself and from the seed.
