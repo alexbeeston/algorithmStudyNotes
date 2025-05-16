@@ -7,3 +7,4 @@
 - `int[,] multidimensionalArray = new int[3, 4]` Use arr.GetLength(0) to get length of first dimension.
 - `int[,]` is a multidimensional array, while `int[][]` is a jagged array.
 - Finding the index of the mid of an array? Do integer division by 2, then if length is odd, result is index of mid, else result is the right-most middle of the result.
+- Sometimes n^2 is the the best runtime; don't optimize before you have a solution.
