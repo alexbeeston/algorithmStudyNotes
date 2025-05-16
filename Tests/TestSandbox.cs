@@ -8,11 +8,35 @@ public class TestSandbox2
     [TestMethod]
     public void Sandbox()
     {
-        int i = int.MinValue;
-        i--;
+        mergeTwoLists s = new();
+        ListNode list1 = new ListNode
+        {
+            val = 1,
+            next = new ListNode
+            {
+                val = 2,
+                next = new ListNode
+                {
+                    val = 4,
+                    next = null,
+                },
+            },
+        };
 
-        //string_to_integer_atoi s = new();
-        ////Assert.IsTrue(s.MyAtoi("42") == 42);
-        //Assert.IsTrue(s.MyAtoi("-042") == -42);
+        ListNode list2 = new ListNode
+        {
+            val = 1,
+            next = new ListNode
+            {
+                val = 3,
+                next = new ListNode
+                {
+                    val = 4,
+                    next = null,
+                },
+            },
+        };
+
+        s.MergeTwoLists(list1, list2);
     }
 }
