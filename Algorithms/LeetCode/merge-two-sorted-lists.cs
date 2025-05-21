@@ -11,29 +11,29 @@ public class mergeTwoLists
 
         ListNode head = new ListNode();
         Helper(head, list1, list2);
-        return head;
+        return head.next;
     }
 
     public void Helper(ListNode tail, ListNode list1, ListNode list2)
     {
         if (list1 == null)
         {
-            tail.val = list2.val;
+            tail.next = list2;
             list2 = list2.next;
         }
         else if (list2 == null)
         {
-            tail.val = list1.val;
+            tail.next = list1;
             list1 = list1.next;
         }
         else if (list1.val <= list2.val)
         {
-            tail.val = list1.val;
+            tail.next = list1;
             list1 = list1.next;
         }
         else
         {
-            tail.val = list2.val;
+            tail.next = list2;
             list2 = list2.next;
         }
 
@@ -43,9 +43,7 @@ public class mergeTwoLists
         }
         else
         {
-            tail.next = new ListNode();
-            tail = tail.next;
-            Helper(tail, list1, list2);
+            Helper(tail.next, list1, list2);
         }
     }
 }
