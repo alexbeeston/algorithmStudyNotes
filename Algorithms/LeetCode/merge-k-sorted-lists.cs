@@ -9,50 +9,65 @@ public class merge_k_sorted_lists
 			return null;
 		}
 
-		ListNode head = GetMinHead(lists);
+		(ListNode head, ListNode tail) = GetMinHead(lists);
 		if (head == null)
 		{
-			return head;
+			return null;
 		}
 
-		Helper(lists, head);
+		Helper(lists, tail);
 		return head;
 	}
 
 	private void Helper(ListNode[] lists, ListNode tail)
 	{
-		ListNode minNode = GetMinHead(lists);
-		if (minNode == null)
+		(ListNode newHead, ListNode newTail) = GetMinHead(lists);
+		if (newHead == null)
 		{
 			return;
 		}
 
-		tail.next = minNode;
-		Helper(lists, tail.next);
+		tail.next = newHead;
+		Helper(lists, newTail);
 	}
 
-	private ListNode? GetMinHead(ListNode[] lists)
+	private (ListNode head, ListNode tail) GetMinHead(ListNode[] lists)
 	{
 		int minValue = int.MaxValue;
-		int indexOfMinValue = -1;
+		List<int> indiciesOfMinValue = new List<int>();
 		for (int i = 0; i < lists.Length; i++)
 		{
-			if (lists[i] != null && lists[i].val < minValue)
+			if (lists[i] != null)
 			{
-				minValue = lists[i].val;
-				indexOfMinValue = i;
+				if (lists[i].val < minValue)
+				{
+					minValue = lists[i].val;
+					indiciesOfMinValue = [i];
+				}
+				else if (lists[i].val == minValue)
+				{
+					indiciesOfMinValue.Add(i);
+				}
 			}
 		}
 
-		if (indexOfMinValue == -1)
+		if (indiciesOfMinValue.Count == 0)
 		{
-			return null;
+			return (null, null);
 		}
 		else
 		{
-			ListNode node = lists[indexOfMinValue];
-			lists[indexOfMinValue] = node.next;
-			return node;
+			ListNode head = lists[indiciesOfMinValue[0]];
+			lists[indiciesOfMinValue[0]] = lists[indiciesOfMinValue[0]].next;
+			ListNode tail = head;
+			for (int j = 1; j < indiciesOfMinValue.Count; j++)
+			{
+				tail.next = lists[indiciesOfMinValue[j]];
+				tail = tail.next;
+				lists[indiciesOfMinValue[j]] = lists[indiciesOfMinValue[j]].next;
+			}
+
+			return (head, tail);
 		}
 	}
 }
