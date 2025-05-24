@@ -1,10 +1,12 @@
-﻿namespace Algorithms.LeetCode;
+﻿using System.Text;
+
+namespace Algorithms.LeetCode;
 
 public class simplify_path
 {
     public string SimplifyPath(string path)
     {
-        Stack<string> canonicalPathStack = new Stack<string>();
+        LinkedList<string> canonicalPathStack = new LinkedList<string>();
         string[] pathParts = path.Split('/');
         foreach (string part in pathParts)
         {
@@ -16,15 +18,27 @@ public class simplify_path
             {
                 if (canonicalPathStack.Count() != 0)
                 {
-                    canonicalPathStack.Pop();
+                    canonicalPathStack.RemoveLast();
                 }
             }
             else
             {
-                canonicalPathStack.Push(part);
+                canonicalPathStack.AddLast(part);
             }
         }
 
-        return '/' + string.Join('/', canonicalPathStack.Reverse());
+        if (canonicalPathStack.Count() == 0)
+        {
+            return "/";
+        }
+
+        StringBuilder sb = new StringBuilder("/");
+        while (canonicalPathStack.Count() > 0)
+        {
+            sb.Append(canonicalPathStack.First() + "/");
+            canonicalPathStack.RemoveFirst();
+        }
+
+        return sb.ToString(0, sb.Length - 1);
     }
 }
