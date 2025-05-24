@@ -8,30 +8,7 @@ public class TestSandbox2
     [TestMethod]
     public void Sandbox()
     {
-        swap_nodes_in_pairs s = new();
-        s.SwapPairs(new ListNode
-        {
-            val = 1,
-            next = new ListNode
-            {
-                val = 2,
-                next = new ListNode
-                {
-                    val = 3,
-                    next = new ListNode
-                    {
-                        val = 4,
-                        next = new ListNode
-                        {
-                            val = 5,
-                            //next = new ListNode
-                            //{
-                            //    val = 6,
-                            //},
-                        }
-                    }
-                }
-            }
-        });
+        
+        [[1,4,5],[1,3,4],[2,6]]
     }
 }
