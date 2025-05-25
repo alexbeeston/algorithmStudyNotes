@@ -6,39 +6,91 @@ public class simplify_path
 {
     public string SimplifyPath(string path)
     {
-        LinkedList<string> canonicalPathStack = new LinkedList<string>();
-        string[] pathParts = path.Split('/');
-        foreach (string part in pathParts)
+        int inputIndex = 0;
+        int outputIndex = 0;
+        Stack<int> directories = new Stack<int>();
+        char[] output = new char[path.Length]; // can't be longer
+        while (inputIndex < path.Length)
         {
-            if (part == "." || part == string.Empty)
+            if (path[inputIndex] == '/')
             {
-                // do nothing
-            }
-            else if (part == "..")
-            {
-                if (canonicalPathStack.Count() != 0)
+                if (outputIndex > 0 && output[outputIndex - 1] == '/')
                 {
-                    canonicalPathStack.RemoveLast();
+                    // repeated slashes, do nothing
+                    inputIndex++;
+                }
+                else
+                {
+                    output[outputIndex] = '/';
+                    directories.Push(outputIndex);
+                    outputIndex++;
+                    inputIndex++;
+                }
+            }
+            else if (path[inputIndex] == '.')
+            {
+                if (outputIndex - directories.Peek() > 1) // >> /.abc
+                {
+                    output[outputIndex] = path[inputIndex];
+                    outputIndex++;
+                    inputIndex++;
+                }
+                else // >>  /.
+                {
+                    inputIndex++;
+                    if (inputIndex == path.Length) // >> /.
+                    {
+                    }
+
+                    else if (path[inputIndex] != '.' && path[inputIndex] != '/') // >>  /.a
+                    {
+                        output[outputIndex] = path[inputIndex - 1];
+                        output[outputIndex + 1] = path[inputIndex];
+                        outputIndex += 2;
+                        inputIndex++;
+                    }
+                    else if (path[inputIndex] == '/') // >> /./
+                    {
+                        inputIndex++;
+                    }
+                    else // >> /..
+                    {
+                        inputIndex++;
+                        if (inputIndex == path.Length) // >> /..
+                        {
+                            directories.Pop();
+                            outputIndex = directories.Count() > 0 ? directories.Pop() + 1 : 1;
+                        }
+                        else if (path[inputIndex] == '.') // >> /...
+                        {
+                            output[outputIndex] = '.';
+                            output[outputIndex + 1] = '.';
+                            output[outputIndex + 2] = '.';
+                            outputIndex += 3;
+                            inputIndex++;
+                        }
+                        else if (path[inputIndex] == '/') // >> /../
+                        {
+                            directories.Pop();
+                            outputIndex = directories.Count() > 0 ? directories.Pop() + 1 : 1;
+                            inputIndex++;
+                        }
+                    }
                 }
             }
             else
             {
-                canonicalPathStack.AddLast(part);
+                output[outputIndex] = path[inputIndex];
+                outputIndex++;
+                inputIndex++;
             }
         }
 
-        if (canonicalPathStack.Count() == 0)
+        if (outputIndex > 1 && output[outputIndex - 1] == '/')
         {
-            return "/";
+            outputIndex--;
         }
 
-        StringBuilder sb = new StringBuilder("/");
-        while (canonicalPathStack.Count() > 0)
-        {
-            sb.Append(canonicalPathStack.First() + "/");
-            canonicalPathStack.RemoveFirst();
-        }
-
-        return sb.ToString(0, sb.Length - 1);
+        return new string(output, 0, outputIndex);
     }
 }
