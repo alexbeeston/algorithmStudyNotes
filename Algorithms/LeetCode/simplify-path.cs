@@ -29,51 +29,55 @@ public class simplify_path
             }
             else if (path[inputIndex] == '.')
             {
-                if (outputIndex - directories.Peek() > 1) // >> /.abc
+                inputIndex++;
+                if (inputIndex == path.Length) // >> /.
                 {
-                    output[outputIndex] = path[inputIndex];
-                    outputIndex++;
+                }
+
+                else if (path[inputIndex] != '.' && path[inputIndex] != '/') // >>  /.a
+                {
+                    output[outputIndex] = path[inputIndex - 1];
+                    output[outputIndex + 1] = path[inputIndex];
+                    outputIndex += 2;
                     inputIndex++;
                 }
-                else // >>  /.
+                else if (path[inputIndex] == '/') // >> /./
                 {
                     inputIndex++;
-                    if (inputIndex == path.Length) // >> /.
+                }
+                else // >> /..
+                {
+                    inputIndex++;
+                    if (inputIndex == path.Length) // >> /..
                     {
-                    }
-
-                    else if (path[inputIndex] != '.' && path[inputIndex] != '/') // >>  /.a
-                    {
-                        output[outputIndex] = path[inputIndex - 1];
-                        output[outputIndex + 1] = path[inputIndex];
-                        outputIndex += 2;
-                        inputIndex++;
-                    }
-                    else if (path[inputIndex] == '/') // >> /./
-                    {
-                        inputIndex++;
-                    }
-                    else // >> /..
-                    {
-                        inputIndex++;
-                        if (inputIndex == path.Length) // >> /..
+                        if (directories.Count() > 0)
                         {
                             directories.Pop();
                             outputIndex = directories.Count() > 0 ? directories.Pop() + 1 : 1;
                         }
-                        else if (path[inputIndex] == '.') // >> /...
+                        else
                         {
-                            output[outputIndex] = '.';
-                            output[outputIndex + 1] = '.';
-                            output[outputIndex + 2] = '.';
-                            outputIndex += 3;
-                            inputIndex++;
+                            outputIndex = 1;
                         }
-                        else if (path[inputIndex] == '/') // >> /../
+                    }
+                    else if (path[inputIndex] == '.') // >> /...
+                    {
+                        output[outputIndex] = '.';
+                        output[outputIndex + 1] = '.';
+                        output[outputIndex + 2] = '.';
+                        outputIndex += 3;
+                        inputIndex++;
+                    }
+                    else if (path[inputIndex] == '/') // >> /../
+                    {
+                        if (directories.Count() > 0)
                         {
                             directories.Pop();
                             outputIndex = directories.Count() > 0 ? directories.Pop() + 1 : 1;
-                            inputIndex++;
+                        }
+                        else
+                        {
+                            outputIndex = 1;
                         }
                     }
                 }

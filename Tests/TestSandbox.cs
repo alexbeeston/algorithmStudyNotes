@@ -26,7 +26,9 @@ public class TestSandbox2
             //new Tuple<string, string>("/home//////foo/", "/home/foo"),
             //new Tuple<string, string>("/home//////foo//////", "/home/foo"),
             //new Tuple<string, string>("/../", "/"),
-            new Tuple<string, string>("/a/./b/../../c/", "/c"),
+            //new Tuple<string, string>("/a/./b/../../c/", "/c"),
+            //new Tuple<string, string>("/.abc", "/.abc"),
+            new Tuple<string, string>("/..hidden", "/..hidden"),
         };
 
         foreach (var testCase in testCases)
