@@ -4,8 +4,8 @@
 - Test cases to consider: negative numbers, zero, near the stated bounds of the problem, array of length 0, array of length 1.
 - Don't hesistate to use recursion; sometimes for me, it makes more sense to break the problem down recursively than iteratively. With iteration you manage stop/start criteria, which you do for recursion too, but with recursion, sometimes those criteria just make more sense as the solution to a subproblem rather than a step in the whole problem. Take Jump Game II for example.
 - Can't optmize but have a solution? Start coding anyways, get points on the board, and then in coding a solution, perhaps I'll see an optimization.
-- `int[,] multidimensionalArray = new int[3, 4]` Use arr.GetLength(0) to get length of first dimension.
-- `int[,]` is a multidimensional array, while `int[][]` is a jagged array.
+- `int[,]` is a rectangular array; `GetLength(i)` works; Initialize with `new int[3, 4]`.
+- `int[][]` is a jagged array; `GetLength(i)` doesn't work; initialize with `new int[3][]` and then `int[]` for each row, or inline with `{ {1, 2, 3}, {1,2, }}`.
 - Finding the index of the mid of an array? Do integer division by 2, then if length is odd, result is index of mid, else result is the right-most middle of the result.
 - Sometimes n^2 is the the best runtime; don't optimize before you have a solution.
 - When using recursion, ask myself whether the recursive function makes any assumptions about the parameters; sometimes it does, and if so, that will affect how the recursive function is called, both from itself and from the seed.
