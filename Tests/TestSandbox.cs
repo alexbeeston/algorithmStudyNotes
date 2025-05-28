@@ -8,7 +8,7 @@ public class TestSandbox2
     [TestMethod]
     public void Sandbox()
     {
-        word_search s = new();
-        s.Exist([['A', 'B', 'C', 'E'], ['S', 'F', 'C', 'S'], ['A', 'D', 'E', 'E']], "ABCCED");
+        restore_valid_ip_addresses s = new();
+        IList<string> a = s.RestoreIpAddresses("101023");
     }
 }
