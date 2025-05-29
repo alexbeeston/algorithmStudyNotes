@@ -1,49 +1,53 @@
-﻿//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Text;
-//using System.Threading.Tasks;
+﻿
+// #131
+namespace Algorithms.LeetCode
+{
+    public class palindrome_partitioning
+    {
+        // good test case: acacbcb & eedeedfdedfd
+        public IList<IList<string>> Partition(string s)
+        {
+            List<int>[] palindromeLengths = new List<int>[s.Length];
+            for (int i = 0; i < s.Length; i++)
+            {
+                palindromeLengths[i] = ComputePalindromes(s, i);
+            }
 
-//// #131
-//namespace Algorithms.LeetCode
-//{
-//    public class palindrome_partitioning
-//    {
-//        // good test case: acacbcb & eedeedfdedfd
-//        public IList<IList<string>> Partition(string s)
-//        {
-//            bool[,] dpTable = new bool[s.Length, s.Length];
-//            for (int i = 0; i < s.Length; i++)
-//            {
-//                for (int j = 1; j < s.Length; j++)
-//                {
-//                    string substring = s.Substring(i, j - i + 1);
-//                    dpTable[i, j] = substring == substring.Reverse();
-//                }
-//            }
+            List<IList<string>> partitions = new List<IList<string>>();
+            Worker(palindromeLengths, partitions, s, 0, []);
+            return partitions;
+        }
 
-//        }
+        private List<int> ComputePalindromes(string s, int i)
+        {
+            List<int> palindromeLengths = new List<int>();
+            int length = 1;
+            while (i + length <= s.Length)
+            {
+                string subString = s.Substring(i, length);
+                if (subString == new string(subString.Reverse().ToArray()))
+                {
+                    palindromeLengths.Add(length);
+                }
 
-//        private void Dog(string s, int startingIndex, bool[,] dpTable, List<string> currentPalindromes, List<IList<string>> allTime)
-//        {
-//            if (startingIndex == s.Length)
-//            {
-//                return;
-//            }
-//            if (startingIndex == s.Length - 1)
-//            {
+                length++;
+            }
 
-//            }
+            return palindromeLengths;
+        }
 
-//            for (int i = startingIndex; i < s.Length; i++)
-//            {
-//                if (dpTable[startingIndex, i])
-//                {
-//                    List<string> copy = currentPalindromes.ToArray().ToList();
-//                    copy.Add(s.Substring(startingIndex, i - startingIndex + 1));
-//                    Dog(s, startingIndex + 1, dpTable, copy, allTime);
-//                }
-//            }
-//        }
-//    }
-//}
+        private void Worker(List<int>[] palindromeLengths, List<IList<string>> partitions, string s, int i, string[] previousPartitions)
+        {
+            if (i == s.Length)
+            {
+                partitions.Add(previousPartitions);
+                return;
+            }
+
+            foreach (int palindromeLength in palindromeLengths[i])
+            {
+                Worker(palindromeLengths, partitions, s, i + palindromeLength, [..previousPartitions, s.Substring(i, palindromeLength)]);
+            }
+        }
+    }
+}

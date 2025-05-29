@@ -9,3 +9,4 @@
 - Finding the index of the mid of an array? Do integer division by 2, then if length is odd, result is index of mid, else result is the right-most middle of the result.
 - Sometimes n^2 is the the best runtime; don't optimize before you have a solution.
 - When using recursion, ask myself whether the recursive function makes any assumptions about the parameters; sometimes it does, and if so, that will affect how the recursive function is called, both from itself and from the seed.
+- C#'s spread operator is nice to copy array and then add another item. If I have `string[] a` and I want to get a new array `string[] b` that is `a` plus `"another item"`, I can do `[..a, "another item"`
