@@ -6,30 +6,28 @@ public class unique_paths_ii
 
     public int UniquePathsWithObstacles(int[][] obstacleGrid)
     {
-        Worker(obstacleGrid, 0, 0, obstacleGrid.Length - 1, obstacleGrid[0].Length - 1);
-        return Counter;
-    }
+        int[,] dpTable = new int[obstacleGrid.Length, obstacleGrid[0].Length];
+        for (int i = 0; i < dpTable.GetLength(0); i++)
+        {
+            for (int j = 0; j < dpTable.GetLength(1); j++)
+            {
+                if (i == 0 && j == 0 && obstacleGrid[i][j] == 0)
+                {
+                    dpTable[i, j] = 1;
+                }
+                else if (obstacleGrid[i][j] == 1)
+                {
+                    dpTable[i, j] = 0;
+                }
+                else
+                {
+                    int aboveAmount = i > 0 ? dpTable[i - 1, j] : 0;
+                    int leftAmount = j > 0 ? dpTable[i, j - 1] : 0;
+                    dpTable[i, j] = aboveAmount + leftAmount;
+                }
+            }
+        }
 
-    private void Worker(int[][] obstacleGrid, int m, int n, int maxM, int maxN) // assumes m and n are valid squares; could be initial, obstacle, or destination
-    {
-        if (obstacleGrid[m][n] == 1)
-        {
-            return;
-        }
-        else if (m == maxM && n == maxN)
-        {
-            Counter++;
-            return;
-        }
-
-        if (m < maxM)
-        {
-            Worker(obstacleGrid, m + 1, n, maxM, maxN);
-        }
-
-        if (n < maxN)
-        {
-            Worker(obstacleGrid, m, n + 1, maxM, maxN);
-        }
+        return dpTable[dpTable.GetLength(0) - 1, dpTable.GetLength(1) - 1];
     }
 }
