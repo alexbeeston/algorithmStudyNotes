@@ -9,6 +9,6 @@ public class TestSandbox2
     public void Sandbox()
     {
         multiply_strings s = new();
-        string d = s.Multiply("999", "9999");
+        string d = s.Multiply("123", "456");
     }
 }

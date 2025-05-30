@@ -11,21 +11,19 @@ public class multiply_strings
             return "0";
         }
 
-        bool nums1IsLonger = num1.Length >= num2.Length;
-        int[] longerNumber = GetIntArray(nums1IsLonger ? num1 : num2).Reverse().ToArray();
-        int[] shorterNumber = GetIntArray(nums1IsLonger ? num2 : num1).Reverse().ToArray();
-
-        // TODO: remove longer number thing
+        int[] nums1 = GetReversedIntArray(num1);
+        int[] nums2 = GetReversedIntArray(num2);
         int[] answer = new int[num1.Length + num2.Length];
         int i = 0;
-        for (; i < longerNumber.Length; i++)
+        while (i < num1.Length)
         {
-            for (int j = 0; j < shorterNumber.Length; j++)
+            for (int j = 0; j < nums2.Length; j++)
             {
-                int product = longerNumber[i] * shorterNumber[j];
+                int product = nums1[i] * nums2[j];
                 IncrementIndex(answer, i + j, product % 10);
                 IncrementIndex(answer, i + j + 1, product / 10);
             }
+            i++;
         }
 
         i = answer.Length - 1;
@@ -55,12 +53,12 @@ public class multiply_strings
         }
     }
 
-    private int[] GetIntArray(string number)
+    private int[] GetReversedIntArray(string number)
     {
         int[] ints = new int[number.Length];
         for (int i = 0; i < number.Length; i++)
         {
-            ints[i] = int.Parse(number.Substring(i, 1));
+            ints[number.Length - 1 - i] = int.Parse(number.Substring(i, 1));
         }
 
         return ints;
