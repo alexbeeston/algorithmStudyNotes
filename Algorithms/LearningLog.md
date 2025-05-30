@@ -10,3 +10,4 @@
 - Sometimes n^2 is the the best runtime; don't optimize before you have a solution.
 - When using recursion, ask myself whether the recursive function makes any assumptions about the parameters; sometimes it does, and if so, that will affect how the recursive function is called, both from itself and from the seed.
 - C#'s spread operator is nice to copy array and then add another item. If I have `string[] a` and I want to get a new array `string[] b` that is `a` plus `"another item"`, I can do `[..a, "another item"`
+- Not every problem can be solved with a dynamic programming table. But, if I have a single dimmensional array (a string is a single dimensional array of letters), then try duplicating that array to make a 2D array. Also, you can treat scaler values (like a knapsack size) as an array and then iterate over it; that's breaking the problem down. See how you can break the problem down.
