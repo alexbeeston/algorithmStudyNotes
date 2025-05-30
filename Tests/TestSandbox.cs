@@ -8,7 +8,7 @@ public class TestSandbox2
     [TestMethod]
     public void Sandbox()
     {
-        palindrome_partitioning s = new();
-        s.Partition("aabbcecb");
+        multiply_strings s = new();
+        string d = s.Multiply("999", "9999");
     }
 }
