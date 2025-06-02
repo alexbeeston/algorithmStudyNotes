@@ -8,7 +8,7 @@ public class TestSandbox2
     [TestMethod]
     public void Sandbox()
     {
-        pascals_triangle_ii s = new();
-        int[] dogs = s.GetRow(0).ToArray();
+        best_time_to_buy_and_sell_stock_ii s = new();
+        int max = s.MaxProfit([7, 1, 5, 3, 6, 4]);
     }
 }
