@@ -9,6 +9,6 @@ public class TestSandbox2
     public void Sandbox()
     {
         best_time_to_buy_and_sell_stock_ii s = new();
-        int max = s.MaxProfit([7, 1, 5, 3, 6, 4]);
+        int max = s.MaxProfit([1]);
     }
 }

@@ -5,31 +5,31 @@
         public int MaxProfit(int[] prices)
         {
             int[] maxProfits = new int[prices.Length];
-            return Worker(prices, maxProfits, prices.Length - 2);
-
+            return Worker(prices, maxProfits, prices.Length - 1);
         }
 
-        public int Worker(int[] prices, int[] maxProfit, int i)
+        public int Worker(int[] prices, int[] maxProfit, int currentDay)
         {
             int currentMaxProfit = 0;
-            for (int j = i + 1; j < prices.Length; j++)
+            for (int i = currentDay; i < prices.Length; i++)
             {
-                int candidateMaxProfit = prices[j] - prices[i];
-                if (j < prices.Length - 1)
+                int candidateMaxProfit = Math.Max(0, prices[i] - prices[currentDay]);
+                if (i < prices.Length - 1)
                 {
-                    candidateMaxProfit += maxProfit[j + 1];
+                    candidateMaxProfit += maxProfit[i + 1];
                 }
+
                 currentMaxProfit = Math.Max(currentMaxProfit, candidateMaxProfit);
             }
 
-            if (i == 0)
+            if (currentDay == 0)
             {
                 return currentMaxProfit;
             }
             else
             {
-                maxProfit[i] = currentMaxProfit;
-                return Worker(prices, maxProfit, i - 1);
+                maxProfit[currentDay] = currentMaxProfit;
+                return Worker(prices, maxProfit, currentDay - 1);
             }
         }
     }
