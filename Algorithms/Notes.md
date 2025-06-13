@@ -22,3 +22,17 @@ Finds the kth largest item in a list. Select a pivot, then move items less than 
 ### Median of Medians
 Finds an approximation of the median (something between 30th and 70th percentiles) by sorting every five elements (omitting the remainder group), then recuring on the third element of each group.
 
+### A*
+Dijkstra is a special case of A* Search Algorithm, where h = 0 for all nodes.
+Requires huerisitc function that doesn't overestimate the cost.
+
+### Heaps
+- Must be a complete binary tree (all levels filled in except the bottom level, from left-right; if not left-right, not a heap)
+- Benefit is that you can find the min or max in O(1) time, and insert or delete in O(log n) time.
+- Pop in constant time, then insert root element at top and bubble down to restore heap property.
+- Heapify = build a heap from an array (takes O(n) time?)
+- Percolate = bubble down/up to restore heap property
+- heap sort = build a max heap, then swap top and bottom, reduce size of heap by one, percolate down from root to restore heap property, then repeat until heap size is one. In-placed sort, since we can use the original array.
+- Consider the function that generates the child indices from the parent index, and the parent index from either of the child indices; needed for percolating.
+
+
