@@ -14,29 +14,16 @@ public class temp
 		return totalTime;
 	}
 
-	// [[3,2],[-2,2]]
-
 	private int GetTimeBetweenTwoPoints(int x1, int y1, int x2, int y2)
 	{
-		x1 = Math.Abs(x1);
-		x2 = Math.Abs(x2);
-		y1 = Math.Abs(y1);
-		y2 = Math.Abs(y2);
-
 		int xDiff = Math.Abs(x2 - x1);
 		int yDiff = Math.Abs(y2 - y1);
-
-		int totalTime = 0;
-		bool eitherIsZero = xDiff == 0 || yDiff == 0;
-		if (!eitherIsZero) // simplify this logic
+		int totalTime = Math.Abs(xDiff - yDiff);
+		if (xDiff != 0 && yDiff != 0)
 		{
-			totalTime = Math.Abs(xDiff - yDiff);
 			totalTime += Math.Max(xDiff, yDiff) - totalTime;
-			return totalTime;
 		}
-		else
-		{
-			return Math.Abs(xDiff - yDiff);
-		}
+
+		return totalTime;
 	}
 }
