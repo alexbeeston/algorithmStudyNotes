@@ -1,6 +1,5 @@
 ﻿- To return an IList<IList<T>>, instantiate a List<IList<T>>, then add to that.
 - Don't try to give them anymore than they ask for! For example, if you're looking for max sub array, but they don't ask for left and right pointers, you may not need to track left/right indices.
-- Don't hesistate to use recursion; sometimes for me, it makes more sense to break the problem down recursively than iteratively. With iteration you manage stop/start criteria, which you do for recursion too, but with recursion, sometimes those criteria just make more sense as the solution to a subproblem rather than a step in the whole problem. Take Jump Game II for example.
 - Test cases to consider: negative numbers, zero, near the stated bounds of the problem, array of length 0, array of length 1.
 - Don't hesistate to use recursion; sometimes for me, it makes more sense to break the problem down recursively than iteratively. With iteration you manage stop/start criteria, which you do for recursion too, but with recursion, sometimes those criteria just make more sense as the solution to a subproblem rather than a step in the whole problem. Take Jump Game II for example.
 - Can't optmize but have a solution? Start coding anyways, get points on the board, and then in coding a solution, perhaps I'll see an optimization.
@@ -11,3 +10,4 @@
 - When using recursion, ask myself whether the recursive function makes any assumptions about the parameters; sometimes it does, and if so, that will affect how the recursive function is called, both from itself and from the seed.
 - C#'s spread operator is nice to copy array and then add another item. If I have `string[] a` and I want to get a new array `string[] b` that is `a` plus `"another item"`, I can do `[..a, "another item"`
 - Not every problem can be solved with a dynamic programming table. But, if I have a single dimmensional array (a string is a single dimensional array of letters), then try duplicating that array to make a 2D array. Also, you can treat scaler values (like a knapsack size) as an array and then iterate over it; that's breaking the problem down. See how you can break the problem down.
+- Max 32-bit integer is -(2^31) through 2^31 - 1, which is += 2.147 * 10 ^ 9
