@@ -11,3 +11,4 @@
 - C#'s spread operator is nice to copy array and then add another item. If I have `string[] a` and I want to get a new array `string[] b` that is `a` plus `"another item"`, I can do `[..a, "another item"`
 - Not every problem can be solved with a dynamic programming table. But, if I have a single dimmensional array (a string is a single dimensional array of letters), then try duplicating that array to make a 2D array. Also, you can treat scaler values (like a knapsack size) as an array and then iterate over it; that's breaking the problem down. See how you can break the problem down.
 - Max 32-bit integer is -(2^31) through 2^31 - 1, which is += 2.147 * 10 ^ 9
+- Visualize the data, especially time-ordered series. This can help arrive at a solution (stock buy/sell II)

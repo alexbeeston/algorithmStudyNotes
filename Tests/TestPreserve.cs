@@ -8,6 +8,7 @@ public class MinWindow
     [TestMethod]
     public void MinWindowTest()
     {
+
         List<ThreeStrings> list = new List<ThreeStrings>()
         {
             //new ThreeStrings("aaaaPPaq", "PPq", "PPaq")
