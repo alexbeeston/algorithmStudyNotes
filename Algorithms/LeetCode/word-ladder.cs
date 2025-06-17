@@ -43,8 +43,14 @@ public class word_ladder
             currentNode = GetNextNodeToExplore(minDistance, explored);
         } while (currentNode != -1); // replace with priority queue; just pop off the next one on the queue
 
-
-        return minDistance[indexOfEnd] + 1;
+        if (minDistance[indexOfEnd] == int.MaxValue)
+        {
+            return 0;
+        }
+        else
+        {
+            return minDistance[indexOfEnd] + 1;
+        }
     }
 
     public int GetNextNodeToExplore(int[] minDistance, bool[] explored)
@@ -52,7 +58,7 @@ public class word_ladder
         Dictionary<int, int> unexploredNodesDistances = new Dictionary<int, int>();
         for (int i = 0; i < explored.Length; i++)
         {
-            if (!explored[i])
+            if (!explored[i] && minDistance[i] != int.MaxValue)
             {
                 unexploredNodesDistances.Add(i, minDistance[i]);
             }

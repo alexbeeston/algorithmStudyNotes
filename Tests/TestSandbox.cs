@@ -9,6 +9,6 @@ public class TestSandbox2
     public void Sandbox()
     {
         word_ladder s = new();
-        int d = s.LadderLength("hot", "dog", ["hot", "dog"]);
+        int d = s.LadderLength("hot", "cog", ["hot", "dot", "tog", "cog"]);
     }
 }
