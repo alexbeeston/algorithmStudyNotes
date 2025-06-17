@@ -8,7 +8,7 @@ public class TestSandbox2
     [TestMethod]
     public void Sandbox()
     {
-        best_time_to_buy_and_sell_stock_ii s = new();
-        int max = s.MaxProfit([2, 1, 4]);
+        word_ladder s = new();
+        int d = s.LadderLength("hit", "cog", ["hot", "dot", "dog", "lot", "log", "cog"]); // output is 5
     }
 }
