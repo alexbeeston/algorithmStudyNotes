@@ -6,6 +6,7 @@ public class word_ladder
 {
     public int LadderLength(string beginWord, string endWord, IList<string> wordList)
     {
+        // Init and validation
         wordList.Add(beginWord);
         int indexOfStart = wordList.Count - 1;
         int indexOfEnd = wordList.IndexOf(endWord);
@@ -14,8 +15,55 @@ public class word_ladder
             return 0;
         }
 
+        // Build graph
         LinkedList<int>[] graph = BuildGraph(wordList);
-        return 10;
+
+        // Init min distance
+        int[] minDistance = new int[wordList.Count];
+        for (int i = 0; i < wordList.Count; i++)
+        {
+            minDistance[i] = int.MaxValue;
+        }
+
+        // Init explored
+        bool[] explored = new bool[wordList.Count];
+
+        // Iterate
+        int currentNode = indexOfStart;
+        minDistance[indexOfStart] = 0;
+        do
+        {
+            // explore a node
+            foreach (int adjacentNode in graph[currentNode])
+            {
+                minDistance[adjacentNode] = Math.Min(minDistance[adjacentNode], minDistance[currentNode] + 1);
+            }
+
+            explored[currentNode] = true;
+            currentNode = GetNextNodeToExplore(minDistance, explored);
+        } while (currentNode != -1); // replace with priority queue; just pop off the next one on the queue
+
+
+        return minDistance[indexOfEnd] + 1;
+    }
+
+    public int GetNextNodeToExplore(int[] minDistance, bool[] explored)
+    {
+        Dictionary<int, int> unexploredNodesDistances = new Dictionary<int, int>();
+        for (int i = 0; i < explored.Length; i++)
+        {
+            if (!explored[i])
+            {
+                unexploredNodesDistances.Add(i, minDistance[i]);
+            }
+        }
+
+        if (unexploredNodesDistances.Count == 0)
+        {
+            return -1;
+        }
+
+        return unexploredNodesDistances.OrderBy(x => x.Value).First().Key;
     }
 
     public LinkedList<int>[] BuildGraph(IList<string> wordList)
@@ -62,4 +110,5 @@ public class word_ladder
 /* Optimizations
  * when building graph, recycle values computed bidirectionally (stair-case)
  * A*, which will require reading the number of letters that are different as the hueristic
+ * optimize which node to explore next with a priority queue
  */
