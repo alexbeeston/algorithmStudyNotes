@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Security;
+using System.Text;
 
 namespace Algorithms.LeetCode;
 
@@ -25,23 +26,23 @@ public class word_ladder
             minDistance[i] = int.MaxValue;
         }
 
-        // Init explored
-        bool[] explored = new bool[wordList.Count];
-
         // Iterate
-        int currentNode = indexOfStart;
         minDistance[indexOfStart] = 0;
-        do
+        PriorityQueue<int, int> heap = new PriorityQueue<int, int>();
+        heap.Enqueue(indexOfStart, 0);
+        while (heap.TryPeek(out int currentNode, out int currentPriority))
         {
-            // explore a node
             foreach (int adjacentNode in graph[currentNode])
             {
-                minDistance[adjacentNode] = Math.Min(minDistance[adjacentNode], minDistance[currentNode] + 1);
+                if (minDistance[currentNode] + 1 < minDistance[adjacentNode])
+                {
+                    minDistance[adjacentNode] = minDistance[currentNode] + 1;
+                    heap.Enqueue(adjacentNode, minDistance[currentNode] + 1);
+                }
             }
 
-            explored[currentNode] = true;
-            currentNode = GetNextNodeToExplore(minDistance, explored);
-        } while (currentNode != -1); // replace with priority queue; just pop off the next one on the queue
+            heap.Dequeue();
+        }
 
         if (minDistance[indexOfEnd] == int.MaxValue)
         {
@@ -51,25 +52,6 @@ public class word_ladder
         {
             return minDistance[indexOfEnd] + 1;
         }
-    }
-
-    public int GetNextNodeToExplore(int[] minDistance, bool[] explored)
-    {
-        Dictionary<int, int> unexploredNodesDistances = new Dictionary<int, int>();
-        for (int i = 0; i < explored.Length; i++)
-        {
-            if (!explored[i] && minDistance[i] != int.MaxValue)
-            {
-                unexploredNodesDistances.Add(i, minDistance[i]);
-            }
-        }
-
-        if (unexploredNodesDistances.Count == 0)
-        {
-            return -1;
-        }
-
-        return unexploredNodesDistances.OrderBy(x => x.Value).First().Key;
     }
 
     public LinkedList<int>[] BuildGraph(IList<string> wordList)
