@@ -12,3 +12,4 @@
 - Not every problem can be solved with a dynamic programming table. But, if I have a single dimmensional array (a string is a single dimensional array of letters), then try duplicating that array to make a 2D array. Also, you can treat scaler values (like a knapsack size) as an array and then iterate over it; that's breaking the problem down. See how you can break the problem down.
 - Max 32-bit integer is -(2^31) through 2^31 - 1, which is += 2.147 * 10 ^ 9
 - Visualize the data, especially time-ordered series. This can help arrive at a solution (stock buy/sell II)
+- How can graph theory be applied to this problem? Can each item in a list be represented as a node? Try hard to figure out how graph they can be used. Each item in a list, each item in a range, etc.
